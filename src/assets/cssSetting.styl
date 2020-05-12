@@ -1,0 +1,45 @@
+size(w = 100%, h = w)
+  width w
+  height h
+
+flexCenter(j = center, a = center, d = row)
+  flex-direction d
+  display flex
+  justify-content j
+  align-items a
+
+posCenter()
+  position absolute
+  left 50%
+  top 50%
+  transform translate(-50%,-50%)
+
+abpos(l = initial, t = initial)
+  position absolute
+  left l
+  top t
+
+random(min, max)
+  return floor(math(0, 'random') * (max - min + 1) + min)
+
+*
+  margin 0
+  padding 0
+  font-family '微軟正黑體'
+  box-sizing border-box
+  h1
+    font-size 8vh
+    text-shadow 12px 12px 8px rgba(0,0,0,0.2)
+  i 
+    font-size 4vh
+
+html, body
+  overflow hidden
+
+@keyframes rotate
+  0%
+    transform rotate(0deg)
+
+  100%
+    transform rotate(360deg)
+
