@@ -5,9 +5,10 @@
       h4 
       input#phoneNum(type="text" pattern="[0-9]{10}" v-model='phoneNum' @input='check')
       .phoneNumResult
-        .resultOutput 
-          #resultText1 {{checkData3}}
-          #resultNum {{checkData4}}
+        .resultOutput(v-for='name in checkResultData')
+          h3 {{name}}
+          //- #resultText1
+          //- #resultNum
     .idTitle
       h2 請輸入您的身分證字號
       h4 算人生際遇
@@ -56,20 +57,44 @@ export default {
         'Z': '26'
       },
       numData: {
-        0:["11","22","33","44","66","77","88","99","00","55"],
-        1:["19","26","34","43","62","78","87","91"],
-        2:["14","28","39","41","67","76","82","93"],
-        3:["13","27","31","49","68","72","86","94"],
-        4:["17","23","32","46","64","71","89","98"],
-        5:["16","29","38","47","61","74","83","92"],
-        6:["12","21","37","48","69","73","84","96"],
-        7:["18","24","36","42","63","79","81","97"]
+        0:{
+          name: '伏位',
+          num: ["11","22","33","44","66","77","88","99","00","55"]
+        },
+        1:{
+          name: '延年',
+          num: ["19","26","34","43","62","78","87","91"]
+        },
+        2:{
+          name: '生氣',
+          num: ["14","28","39","41","67","76","82","93"]
+        },
+        3:{
+          name: '天醫',
+          num: ["13","27","31","49","68","72","86","94"]
+        },
+        4:{
+          name: '禍害',
+          num: ["17","23","32","46","64","71","89","98"]
+        },
+        5:{
+          name: '六煞',
+          num: ["16","29","38","47","61","74","83","92"]
+        },
+        6:{
+          name: '絕命',
+          num: ["12","21","37","48","69","73","84","96"]
+        },
+        7:{
+          name: '五鬼',
+          num: ["18","24","36","42","63","79","81","97"]
+        }
       },
       checkData1: [],
       checkData2: [],
       checkData3: [],
       checkData4: [],
-      checkResult: [],
+      checkResultData: [],
       IDcheckData1: [],
       IDcheckData2: [],
 
@@ -80,6 +105,7 @@ export default {
       this.checkData1=[]
       this.checkData2=[]
       this.checkData3=[]
+      this.checkResultData=[]
       // console.log(e.target.value)
       // console.log(this.phoneNum)
       for(let i=0;i<this.phoneNum.length-1;i++){
@@ -166,7 +192,22 @@ export default {
           this.checkData4.push(data3[i])
         }
       }
+      this.checkResult(this.checkData4)
+    },
+    checkResult(data4) {
+      this.checkResultData = data4.map(element => {
+        for (let i in this.numData) {
+          for (let j in this.numData[i].num) {
+            if (element == this.numData[i].num[j]) {
+              return this.numData[i].name
+            }
+          }
+        }
+      })
     }
+  },
+  comuted() {
+  
   }
 
 }
