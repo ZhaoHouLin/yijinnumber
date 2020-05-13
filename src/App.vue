@@ -5,9 +5,9 @@
       h4 
       input#phoneNum(type="text" pattern="[0-9]{10}" v-model='phoneNum' @input='check')
       .phoneNumResult
-        .resultOutput {{phoneNum}}
-          #resultText {{numData[3][5]}}
-          #resultNum
+        .resultOutput 
+          #resultText1 {{checkData3}}
+          #resultNum {{checkData4}}
     .idTitle
       h2 請輸入您的身分證字號
       h4 算人生際遇
@@ -65,77 +65,109 @@ export default {
         6:["12","21","37","48","69","73","84","96"],
         7:["18","24","36","42","63","79","81","97"]
       },
-      checkStep1: [],
-      checkStep2: [],
-      checkStep3: [],
-      checkStep4: [],
+      checkData1: [],
+      checkData2: [],
+      checkData3: [],
+      checkData4: [],
       checkResult: [],
-      IDcheckStep1: [],
-      IDcheckStep2: [],
+      IDcheckData1: [],
+      IDcheckData2: [],
 
     }
   },
   methods: {
     check() {
-      this.checkStep1=[]
-      this.checkStep2=[]
-      this.checkStep3=[]
+      this.checkData1=[]
+      this.checkData2=[]
+      this.checkData3=[]
       // console.log(e.target.value)
-      console.log(this.phoneNum)
-      for(var i=0;i<this.phoneNum.length-1;i++){
-        this.checkStep1.push(this.phoneNum[i]+this.phoneNum[i+1])
+      // console.log(this.phoneNum)
+      for(let i=0;i<this.phoneNum.length-1;i++){
+        this.checkData1.push(this.phoneNum[i]+this.phoneNum[i+1])
       }
-      const data1 = this.checkStep1
-      // console.log(data1)
+      const data1 = this.checkData1
+      console.log(data1)
       this.remove0055(data1)
     },
     remove0055(data1) {
       // console.log(data1)
-      this.checkStep2 = data1.filter(element => {
+      this.checkData2 = data1.filter(element => {
         return element !=='55' && element !=='00'
       })
-      console.log(this.checkStep2)
-      this.check5(this.checkStep2)
+      this.check5(this.checkData2)
     },
     check5(data2) {
+      // 5在1&9之間要重複19一次
       for(let i=0;i<data2.length;i++){
-    // -----5在1&9之間要重複19一次
         if(data2[i] == "95" && data2[i+1] == "51"){
-          this.checkStep3.push("91")
-          this.checkStep3.push("19")
+          this.checkData3.push("91")
+          this.checkData3.push("19")
         }else if(data2[i] == "51" && data2[i-1] == "95"){
-          this.checkStep3.push("91")
+          this.checkData3.push("91")
         }else if(data2[i] == "15" && data2[i+1] == "59"){
-          this.checkStep3.push("19")
-          this.checkStep3.push("91")
+          this.checkData3.push("19")
+          this.checkData3.push("91")
         }else if(data2[i] == "59" && data2[i-1] == "15"){
-          this.checkStep3.push("19")
+          this.checkData3.push("19")
         }
         // -----
 
         // 雙位數字中個位數字有5並且不是最後一組數字
-        else if(data2[i].split("")[1] == "5" && (i != (data2.length-1))){
-          // 則this.checkStep3加入 數字組中的個位數接合下一組數字組中的十位數
-          this.checkStep3.push(data2[i].split("")[0]+data2[i+1].split("")[1])
+        else if(data2[i].split("")[1] == "5" && (i !== (data2.length-1))){
+          // 則this.checkData3加入 數字組中的十位數接合下一組數字組中的個位數
+          this.checkData3.push(data2[i].split("")[0]+data2[i+1].split("")[1])
           // 將下一組數字刪除
           data2.splice(i+1,1)
         }
         // 檢查5在頭尾數字組要變伏位
-        else if(data2[i].split("")[0]=="5" && (i==0)){
-          this.checkStep3.push(data2[i+1].split("")[0]+data2[i+1].split("")[0])
-        }else if(data2[i].split("")[1]=="5" && (i==(data2.length-1))){
-          this.checkStep3.push(data2[i].split("")[0]+data2[i].split("")[0])
+        else if(data2[i].split("")[0] == "5" && (i == 0)){
+          this.checkData3.push(data2[i+1].split("")[0]+data2[i+1].split("")[0])
+        }else if(data2[i].split("")[1] == "5" && (i == (data2.length-1))){
+          this.checkData3.push(data2[i].split("")[0]+data2[i].split("")[0])
           data2.splice(i+1,1)
         }
         // 其餘數字組十位數或個位數不是5就加入 checkC
-        else if(data2[i].split("")[0]!="5" || data2[i].split("")[1]!="5"){
-          this.checkStep3.push(data2[i])
+        else if(data2[i].split("")[0] !== "5" || data2[i].split("")[1] !== "5"){
+          this.checkData3.push(data2[i])
         }
-        console.log(this.checkStep3)
+        this.checkData4=[]
+        this.check0(this.checkData3)
+      }
+    },
+    check0(data3) {
+      for(let i=0;i<data3.length;i++){
+        // 雙位數字中個位數字有0並且不是最後一組數字
+        if(data3[i].split("")[1] == "0" && (i != (data3.length-1))){
+          // 則checkD加入 數字組重複十位數
+          this.checkData4.push(data3[i].split("")[0]+data3[i].split("")[0])
+        }
+        // 雙位數字中十位數字有0並且不是最後一組數字
+        else if(data3[i].split("")[0] == "0" && (i != (data3.length-1))){
+          // 則this.checkData4加入 數字組重複個位數
+          this.checkData4.push(data3[i].split("")[1]+data3[i].split("")[1])
+        }
+
+        // 雙位數十位數是0且是第一組
+        else if(data3[i].split("")[0] == "0" && (i == 0)){
+          // this.checkData4加入雙位數的個位數
+          this.checkData4.push(data3[i].split("")[1]+data3[i].split("")[1])
+        }
+        // 雙位數十位數是0且是最後一組
+        else if(data3[i].split("")[0] == "0" && (i == (data3.length-1))){
+          // this.checkData4加入重複的個位數
+          this.checkData4.push(data3[i].split("")[1]+data3[i].split("")[1])
+        }
+        // 雙位數個位數是0且是最後一組
+        else if(data3[i].split("")[1] == "0" && (i == (data3.length-1))){
+          // this.checkData4加入重複的十位數
+          this.checkData4.push(data3[i].split("")[0]+data3[i].split("")[0])
+        }else{
+          // 其餘數字組加入this.checkData4   
+          this.checkData4.push(data3[i])
+        }
       }
     }
-  },
-
+  }
 
 }
 </script>
@@ -144,7 +176,6 @@ export default {
 
 <style lang="stylus">
 @import './assets/cssSetting.styl'
-
 
 
 </style>
