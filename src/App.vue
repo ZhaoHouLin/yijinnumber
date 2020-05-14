@@ -208,25 +208,29 @@ export default {
     },
     upperCase(val) {
       let text = val.toUpperCase()
+      return text
+    },
+    idTempData(text) {
       let temp = ''
       for(let i=0;i<text.length;i++) {
-        temp += this.findCode(text[i]) 
+        temp += this.leeterToNum(text[i]) 
       }
       return temp
     },
-    findCode(letter) {
+    leeterToNum(letter) {
       for( let i in this.code) {
         if( letter == i) {
           return this.code[i]
-        } 
-        return letter
+        }
       }
+      return letter
     },
     checkID(e) {
       this.idCheckData1= []
       let val = e.target.value
       let upperCode = this.upperCase(val)
-      console.log(upperCode)
+      this.idTempData(upperCode)
+      console.log(this.idTempData(upperCode))
       
     }
   },
