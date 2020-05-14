@@ -12,12 +12,12 @@
     .idTitle
       h2 請輸入您的身分證字號
       h4 算人生際遇
-      input#idNum(type="text" v-model='idNum')    
+      input#idNum(type="text" v-model='idNum' @input='checkID')    
       .idCardResult
         .idResultOutput
           #yearRange
           #idResultText
-          #idResultNum
+          #idResultNum {{idCheckData1}}
 
 </template>
 
@@ -95,8 +95,9 @@ export default {
       checkData3: [],
       checkData4: [],
       checkResultData: [],
-      IDcheckData1: [],
-      IDcheckData2: [],
+      idCheckData1: [],
+      idCheckData2: [],
+      idCheckResultData: []
 
     }
   },
@@ -204,6 +205,29 @@ export default {
           }
         }
       })
+    },
+    upperCase(val) {
+      let text = val.toUpperCase()
+      let temp = ''
+      for(let i=0;i<text.length;i++) {
+        temp += this.findCode(text[i]) 
+      }
+      return temp
+    },
+    findCode(letter) {
+      for( let i in this.code) {
+        if( letter == i) {
+          return this.code[i]
+        } 
+        return letter
+      }
+    },
+    checkID(e) {
+      this.idCheckData1= []
+      let val = e.target.value
+      let upperCode = this.upperCase(val)
+      console.log(upperCode)
+      
     }
   },
   comuted() {
