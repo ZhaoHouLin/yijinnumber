@@ -90,10 +90,6 @@ export default {
           num: ["18","24","36","42","63","79","81","97"]
         }
       },
-      checkData1: [],
-      checkData2: [],
-      checkData3: [],
-      checkData4: [],
       checkResultData: [],
       idCheckData1: [],
       idCheckData2: [],
@@ -103,97 +99,92 @@ export default {
   },
   methods: {
     check() {
-      this.checkData1=[]
-      this.checkData2=[]
-      this.checkData3=[]
       this.checkResultData=[]
-      // console.log(e.target.value)
-      // console.log(this.phoneNum)
+      const data1 = []
       for(let i=0;i<this.phoneNum.length-1;i++){
-        this.checkData1.push(this.phoneNum[i]+this.phoneNum[i+1])
+        data1.push(this.phoneNum[i]+this.phoneNum[i+1])
       }
-      const data1 = this.checkData1
-      console.log(data1)
+      // console.log(data1)
       this.remove0055(data1)
     },
     remove0055(data1) {
-      // console.log(data1)
-      this.checkData2 = data1.filter(element => {
+      const data2 = data1.filter(element => {
         return element !=='55' && element !=='00'
       })
-      this.check5(this.checkData2)
+      this.check5(data2)
     },
     check5(data2) {
+      const data3 = []
       // 5在1&9之間要重複19一次
       for(let i=0;i<data2.length;i++){
         if(data2[i] == "95" && data2[i+1] == "51"){
-          this.checkData3.push("91")
-          this.checkData3.push("19")
+          data3.push("91")
+          data3.push("19")
         }else if(data2[i] == "51" && data2[i-1] == "95"){
-          this.checkData3.push("91")
+          data3.push("91")
         }else if(data2[i] == "15" && data2[i+1] == "59"){
-          this.checkData3.push("19")
-          this.checkData3.push("91")
+          data3.push("19")
+          data3.push("91")
         }else if(data2[i] == "59" && data2[i-1] == "15"){
-          this.checkData3.push("19")
+          data3.push("19")
         }
-        // -----
 
         // 雙位數字中個位數字有5並且不是最後一組數字
         else if(data2[i].split("")[1] == "5" && (i !== (data2.length-1))){
-          // 則this.checkData3加入 數字組中的十位數接合下一組數字組中的個位數
-          this.checkData3.push(data2[i].split("")[0]+data2[i+1].split("")[1])
+          // 則data3加入 數字組中的十位數接合下一組數字組中的個位數
+          data3.push(data2[i].split("")[0]+data2[i+1].split("")[1])
           // 將下一組數字刪除
           data2.splice(i+1,1)
         }
         // 檢查5在頭尾數字組要變伏位
         else if(data2[i].split("")[0] == "5" && (i == 0)){
-          this.checkData3.push(data2[i+1].split("")[0]+data2[i+1].split("")[0])
+          data3.push(data2[i+1].split("")[0]+data2[i+1].split("")[0])
         }else if(data2[i].split("")[1] == "5" && (i == (data2.length-1))){
-          this.checkData3.push(data2[i].split("")[0]+data2[i].split("")[0])
+          data3.push(data2[i].split("")[0]+data2[i].split("")[0])
           data2.splice(i+1,1)
         }
         // 其餘數字組十位數或個位數不是5就加入 checkC
         else if(data2[i].split("")[0] !== "5" || data2[i].split("")[1] !== "5"){
-          this.checkData3.push(data2[i])
+          data3.push(data2[i])
         }
-        this.checkData4=[]
-        this.check0(this.checkData3)
+        this.check0(data3)
       }
     },
     check0(data3) {
+      const data4 = []
       for(let i=0;i<data3.length;i++){
         // 雙位數字中個位數字有0並且不是最後一組數字
         if(data3[i].split("")[1] == "0" && (i != (data3.length-1))){
           // 則checkD加入 數字組重複十位數
-          this.checkData4.push(data3[i].split("")[0]+data3[i].split("")[0])
+          data4.push(data3[i].split("")[0]+data3[i].split("")[0])
         }
         // 雙位數字中十位數字有0並且不是最後一組數字
         else if(data3[i].split("")[0] == "0" && (i != (data3.length-1))){
-          // 則this.checkData4加入 數字組重複個位數
-          this.checkData4.push(data3[i].split("")[1]+data3[i].split("")[1])
+          // 則data4加入 數字組重複個位數
+          data4.push(data3[i].split("")[1]+data3[i].split("")[1])
         }
 
         // 雙位數十位數是0且是第一組
         else if(data3[i].split("")[0] == "0" && (i == 0)){
-          // this.checkData4加入雙位數的個位數
-          this.checkData4.push(data3[i].split("")[1]+data3[i].split("")[1])
+          // data4加入雙位數的個位數
+          data4.push(data3[i].split("")[1]+data3[i].split("")[1])
         }
         // 雙位數十位數是0且是最後一組
         else if(data3[i].split("")[0] == "0" && (i == (data3.length-1))){
-          // this.checkData4加入重複的個位數
-          this.checkData4.push(data3[i].split("")[1]+data3[i].split("")[1])
+          // data4加入重複的個位數
+          data4.push(data3[i].split("")[1]+data3[i].split("")[1])
         }
         // 雙位數個位數是0且是最後一組
         else if(data3[i].split("")[1] == "0" && (i == (data3.length-1))){
-          // this.checkData4加入重複的十位數
-          this.checkData4.push(data3[i].split("")[0]+data3[i].split("")[0])
+          // data4加入重複的十位數
+          data4.push(data3[i].split("")[0]+data3[i].split("")[0])
         }else{
-          // 其餘數字組加入this.checkData4   
-          this.checkData4.push(data3[i])
+          // 其餘數字組加入data4   
+          data4.push(data3[i])
         }
       }
-      this.checkResult(this.checkData4)
+      console.log(data4)
+      this.checkResult(data4)
     },
     checkResult(data4) {
       this.checkResultData = data4.map(element => {
@@ -230,8 +221,12 @@ export default {
       let val = e.target.value
       let upperCode = this.upperCase(val)
       this.idTempData(upperCode)
-      console.log(this.idTempData(upperCode))
-      
+      let idData = this.idTempData(upperCode)
+      for(let i=0;i<idData.length-1;i++){
+        this.idCheckData1.push(idData[i]+idData[i+1])
+      }
+      let idData1 = this.idCheckData1
+      this.remove0055(idData1)
     }
   },
   comuted() {
