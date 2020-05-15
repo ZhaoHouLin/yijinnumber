@@ -13,8 +13,8 @@
       h2 請輸入您的身分證字號
       h4 算人生際遇
       input#idNum(type="text" v-model='idNum' @input='idCheck')    
-      .idCardResult(v-for='result in idResult')
-        h3 {{result[0]}} {{result[1]}}
+      .idCardResult(v-for='(result,id) in idResult')
+        h3 {{result[0]}} {{result[1]}} {{idResultLimit(id)[0]}} ~ {{idResultLimit(id)[1]}} 歲
 
 </template>
 
@@ -232,6 +232,17 @@ export default {
       }
       let idData1 = this.idCheckData1
       this.idResult=this.remove0055(idData1)
+    },
+    idResultLimit(id) {
+      let lowerLimit = id
+      let upperLimit = id+13
+      for(let i=0;i<this.idResult.length;i++) {
+        if( id > 0 ){
+          lowerLimit = id*5+8
+          upperLimit = id*5+13
+        } 
+      }
+      return [lowerLimit,upperLimit]
     }
   },
   comuted() {
