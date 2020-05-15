@@ -5,8 +5,8 @@
       h4 
       input#phoneNum(type="text" pattern="[0-9]{10}" v-model='phoneNum' @input='check')
       .phoneNumResult
-        .resultOutput(v-for='name in checkResultData')
-          h3 {{name}}
+        .resultOutput(v-for='result in checkResultData')
+          h3 {{result[0]}} {{result[1]}}
           //- #resultText1
           //- #resultNum
     .idTitle
@@ -191,7 +191,7 @@ export default {
         for (let i in this.numData) {
           for (let j in this.numData[i].num) {
             if (element == this.numData[i].num[j]) {
-              return this.numData[i].name
+              return [element,this.numData[i].name]
             }
           }
         }
