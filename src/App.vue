@@ -1,21 +1,26 @@
 <template lang='pug'>
   #app
-    .phoneTitle
+    .phoneInfo
       h2 請輸入您的電話號碼
       h4 
-      input#phoneNum(type="text" pattern="[0-9]{10}" v-model='phoneNum' @input='phoneCheck')
-      .phoneNumResult
-        .resultOutput(v-for='result in phoneResult')
-          h3 {{result[0]}} {{result[1]}}
-          //- #resultText1
-          //- #resultNum
-    .idTitle
+      input#phoneNum(type="text" v-model='phoneNum' @input='phoneCheck')
+      .phoneResult
+        .resultText(v-for='result in phoneResult')
+          h3 {{result[0]}}
+          h4 {{result[1]}}
+
+    .idInfo
       h2 請輸入您的身分證字號
       h4 算人生際遇
       input#idNum(type="text" v-model='idNum' @input='idCheck')    
-      .idCardResult(v-for='(result,id) in idResult')
-        h3 {{result[0]}} {{result[1]}} {{idResultLimit(id)[0]}} ~ {{idResultLimit(id)[1]}} 歲
-
+      .idResult
+        .idResultText(v-for='(result,id) in idResult')
+          h3 {{result[0]}}  
+          h4 {{result[1]}}
+          h3 {{idResultLimit(id)[0]}}
+          h3 |
+          h3 {{idResultLimit(id)[1]}} 
+          h4 歲
 </template>
 
 
@@ -256,6 +261,61 @@ export default {
 
 <style lang="stylus">
 @import './assets/cssSetting.styl'
+primary_color = #ffeaba
+light_color = #ffffed
+dark_color = #cbb88a
 
+#app
+  background-color primary_color
+  size(100%,100vh)
+  flexCenter()
+  flex-direction column
+  .phoneInfo,.idInfo
+    border-radius 5%
+    margin 0 4%
+    padding 2vh 0
+    flexCenter(flex-start,center)
+    flex-direction column
+    h2
+      margin 2% 0
+    input
+      text-align center
+      font-size 1rem
+      size(50%,30px)
+      margin 2% 0
 
+  .phoneInfo
+    margin-bottom 4vh
+    background-color light_color
+    size(95%,30vh)
+    .phoneResult
+      flexCenter()
+      .resultText
+        margin 0 8px
+        h4
+          -webkit-writing-mode vertical-lr
+          writing-mode vertical-lr 
+
+  .idInfo
+    background-color dark_color
+    size(95%,50vh)
+    .idResult
+      flexCenter()
+      .idResultText
+        margin 0 8px
+        h3,h4,h5
+          margin 2px 0
+          text-align center
+        h4
+          -webkit-writing-mode vertical-lr
+          writing-mode vertical-lr 
+  
+@media screen and (min-width: 1024px)
+  #app
+    .phoneInfo,.idInfo
+      padding 0
+    .phoneInfo
+      input
+        margin 0
+        margin-bottom 16px
 </style>
