@@ -3,21 +3,18 @@
     .phoneTitle
       h2 請輸入您的電話號碼
       h4 
-      input#phoneNum(type="text" pattern="[0-9]{10}" v-model='phoneNum' @input='check')
+      input#phoneNum(type="text" pattern="[0-9]{10}" v-model='phoneNum' @input='phoneCheck')
       .phoneNumResult
-        .resultOutput(v-for='result in checkResultData')
+        .resultOutput(v-for='result in phoneResult')
           h3 {{result[0]}} {{result[1]}}
           //- #resultText1
           //- #resultNum
     .idTitle
       h2 請輸入您的身分證字號
       h4 算人生際遇
-      input#idNum(type="text" v-model='idNum' @input='checkID')    
-      .idCardResult
-        .idResultOutput
-          #yearRange
-          #idResultText
-          #idResultNum {{idCheckData1}}
+      input#idNum(type="text" v-model='idNum' @input='idCheck')    
+      .idCardResult(v-for='result in idResult')
+        h3 {{result[0]}} {{result[1]}}
 
 </template>
 
@@ -91,6 +88,8 @@ export default {
         }
       },
       checkResultData: [],
+      phoneResult: [],
+      idResult:[],
       idCheckData1: [],
       idCheckData2: [],
       idCheckResultData: []
@@ -98,20 +97,26 @@ export default {
     }
   },
   methods: {
-    check() {
+    phoneCheck(event) {
       this.checkResultData=[]
+      if(event.target.composing) {
+        return
+      }
+      this.phoneNum = event.target.value.trim()
+      this.phoneNum = this.phoneNum.replace("\\u200B","")
       const data1 = []
       for(let i=0;i<this.phoneNum.length-1;i++){
         data1.push(this.phoneNum[i]+this.phoneNum[i+1])
       }
-      // console.log(data1)
-      this.remove0055(data1)
+
+      this.phoneResult = this.remove0055(data1)
     },
     remove0055(data1) {
       const data2 = data1.filter(element => {
         return element !=='55' && element !=='00'
       })
-      this.check5(data2)
+      // console.log(this.check5(data2))
+      return this.check5(data2)
     },
     check5(data2) {
       const data3 = []
@@ -147,8 +152,8 @@ export default {
         else if(data2[i].split("")[0] !== "5" || data2[i].split("")[1] !== "5"){
           data3.push(data2[i])
         }
-        this.check0(data3)
       }
+      return this.check0(data3)
     },
     check0(data3) {
       const data4 = []
@@ -183,11 +188,11 @@ export default {
           data4.push(data3[i])
         }
       }
-      console.log(data4)
-      this.checkResult(data4)
+      // console.log(this.checkResult(data4))
+      return this.checkResult(data4)
     },
     checkResult(data4) {
-      this.checkResultData = data4.map(element => {
+      return this.checkResultData = data4.map(element => {
         for (let i in this.numData) {
           for (let j in this.numData[i].num) {
             if (element == this.numData[i].num[j]) {
@@ -216,7 +221,7 @@ export default {
       }
       return letter
     },
-    checkID(e) {
+    idCheck(e) {
       this.idCheckData1= []
       let val = e.target.value
       let upperCode = this.upperCase(val)
@@ -226,7 +231,7 @@ export default {
         this.idCheckData1.push(idData[i]+idData[i+1])
       }
       let idData1 = this.idCheckData1
-      this.remove0055(idData1)
+      this.idResult=this.remove0055(idData1)
     }
   },
   comuted() {
