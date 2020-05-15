@@ -279,6 +279,7 @@ dark_color = #cbb88a
     h2
       margin 2% 0
     input
+      border 1px solid #000
       text-align center
       font-size 1rem
       size(50%,30px)
@@ -316,6 +317,7 @@ dark_color = #cbb88a
       padding 0
     .phoneInfo
       input
+        border 1px solid #000
         margin 0
         margin-bottom 16px
 </style>
