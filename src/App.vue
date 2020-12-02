@@ -3,7 +3,7 @@
     .phoneInfo
       h2 請輸入您的電話號碼
       h4 
-      input#phoneNum(type="text" v-model='phoneNum' @input='phoneCheck')
+      input#phoneNum(type="number" maxlength=10 v-model='phoneNum' @input='phoneCheck')
       .phoneResult
         .resultText(v-for='result in phoneResult')
           h3 {{result[0]}}
@@ -12,7 +12,7 @@
     .idInfo
       h2 請輸入您的身分證字號
       h4 算人生際遇
-      input#idNum(type="text" v-model='idNum' @input='idCheck')    
+      input#idNum(type="text" maxlength=10 v-model='idNum' @input='idCheck')    
       .idResult
         .idResultText(v-for='(result,id) in idResult')
           h3 {{result[0]}}  
