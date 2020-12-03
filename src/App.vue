@@ -1,26 +1,10 @@
 <template lang='pug'>
   #app
-    .phoneInfo
-      h2 請輸入您的電話號碼
-      h4 
-      input#phoneNum(type="number" maxlength=10 v-model='phoneNum' @input='phoneCheck')
-      .phoneResult
-        .resultText(v-for='result in phoneResult')
-          h3 {{result[0]}}
-          h4 {{result[1]}}
-
-    .idInfo
-      h2 請輸入您的身分證字號
-      h4 算人生際遇
-      input#idNum(type="text" maxlength=10 v-model='idNum' @input='idCheck')    
-      .idResult
-        .idResultText(v-for='(result,id) in idResult')
-          h3 {{result[0]}}  
-          h4 {{result[1]}}
-          h3 {{idResultLimit(id)[0]}}
-          h3 |
-          h3 {{idResultLimit(id)[1]}} 
-          h4 歲
+    transition(name='page' mode='out-in')
+      router-view(:phoneResult='phoneResult' @phoneCheck='phoneCheck' :idResult='idResult' :idResultLimit='idResultLimit' @idCheck='idCheck')
+    .list
+      router-link(to='/PhoneNumber') 算手機能量
+      router-link(to='/IDNumber') 算流年
 </template>
 
 
@@ -250,9 +234,6 @@ export default {
       return [lowerLimit,upperLimit]
     }
   },
-  comuted() {
-  
-  }
 
 }
 </script>
@@ -271,9 +252,7 @@ dark_color = #cbb88a
   flexCenter()
   flex-direction column
   .phoneInfo,.idInfo
-    border-radius 5%
-    margin 0 4%
-    padding 2vh 0
+    margin-top: 10vh
     flexCenter(flex-start,center)
     flex-direction column
     h2
@@ -284,32 +263,28 @@ dark_color = #cbb88a
       font-size 1rem
       size(50%,30px)
       margin 2% 0
-
-  .phoneInfo
-    margin-bottom 4vh
-    background-color light_color
-    size(95%,30vh)
-    .phoneResult
+  .list
+    size(100%,10vh)
+    flexCenter()
+    a
+      size(50%,100%)
       flexCenter()
-      .resultText
-        margin 0 8px
-        h4
-          -webkit-writing-mode vertical-lr
-          writing-mode vertical-lr 
+      // border 1px solid #000
+      text-decoration none
+      font-size 4vh
+      color #eee
+      background-color dark_color
+      &:focus
+        background-color light_color
+        color black
 
-  .idInfo
-    background-color dark_color
-    size(95%,50vh)
-    .idResult
-      flexCenter()
-      .idResultText
-        margin 0 8px
-        h3,h4,h5
-          margin 2px 0
-          text-align center
-        h4
-          -webkit-writing-mode vertical-lr
-          writing-mode vertical-lr 
+
+.page-enter-active,.page-leave-active
+  transition 0.5s
+.page-enter,.page-leave-to
+  opacity 0  
+
+  
   
 @media screen and (min-width: 1024px)
   #app
