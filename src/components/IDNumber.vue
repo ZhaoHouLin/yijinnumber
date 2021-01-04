@@ -22,11 +22,12 @@ export default {
   .idResult
     .idResultText(v-for='(result,id) in idResult')
       h3 {{result[0]}}  
-      h4 {{result[1]}}
+      a(:href="result[2]" target='_blank') {{result[1]}}
       h3 {{idResultLimit(id)[0]}}
       h3 |
       h3 {{idResultLimit(id)[1]}} 
       h4 歲
+
 </template>
 
 <style lang='stylus' scoped>
@@ -44,4 +45,10 @@ export default {
       h4
         -webkit-writing-mode vertical-lr
         writing-mode vertical-lr 
+      a
+        -webkit-writing-mode vertical-lr
+        writing-mode vertical-lr 
+        text-decoration none
+        color #222
+        font-weight bold
 </style>

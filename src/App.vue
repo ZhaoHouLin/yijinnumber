@@ -45,35 +45,43 @@ export default {
       numData: {
         0:{
           name: '伏位',
-          num: ["11","22","33","44","66","77","88","99","00","55"]
+          num: ["11","22","33","44","66","77","88","99","00","55"],
+          searchUrl: 'https://www.google.com.tw/search?sxsrf=ALeKk03bdwORn-GjJP1a3jcEIxnFaZLfRA%3A1609738447488&ei=z6jyX8GmHZ6Rr7wPmZqIiAQ&q=%E6%98%93%E7%B6%93+%E4%BC%8F%E4%BD%8D&oq=%E6%98%93%E7%B6%93+%E4%BC%8F%E4%BD%8D&gs_lcp=CgZwc3ktYWIQAzICCAA6BAgAEEdQqpsnWN6sJ2DOridoAHACeACAAYQBiAHFApIBAzEuMpgBAKABAaABAqoBB2d3cy13aXrIAQjAAQE&sclient=psy-ab&ved=0ahUKEwiByt-Cx4HuAhWeyIsBHRkNAkEQ4dUDCA0&uact=5'
         },
         1:{
           name: '延年',
-          num: ["19","26","34","43","62","78","87","91"]
+          num: ["19","26","34","43","62","78","87","91"],
+          searchUrl: 'https://www.google.com.tw/search?sxsrf=ALeKk01EK2j-2gzA0bwSbBcX_TMPZV8kXg%3A1609740617751&ei=SbHyX8e6LcObmAX-z6vwDQ&q=%E6%98%93%E7%B6%93+%E5%BB%B6%E5%B9%B4&oq=%E6%98%93%E7%B6%93+%E5%BB%B6%E5%B9%B4&gs_lcp=CgZwc3ktYWIQAzIECCMQJ1DNWljNWmCXYWgAcAB4AIABhwGIAeMBkgEDMS4xmAEAoAECoAEBqgEHZ3dzLXdpesABAQ&sclient=psy-ab&ved=0ahUKEwiHg86Nz4HuAhXDDaYKHf7nCt4Q4dUDCA0&uact=5'
         },
         2:{
           name: '生氣',
-          num: ["14","28","39","41","67","76","82","93"]
+          num: ["14","28","39","41","67","76","82","93"],
+          searchUrl:'https://www.google.com.tw/search?sxsrf=ALeKk03bplJbfPexageQH0MVBvSD9XUPwg%3A1609740202311&ei=qq_yX-rMEqWImAW8uqGoAw&q=%E6%98%93%E7%B6%93+%E7%94%9F%E6%B0%A3&oq=%E6%98%93%E7%B6%93+%E7%94%9F%E6%B0%A3&gs_lcp=CgZwc3ktYWIQAzICCAA6BAgjECdQi54KWIueCmCDpQpoAHAAeACAAYUBiAHpAZIBAzAuMpgBAKABAqABAaoBB2d3cy13aXrAAQE&sclient=psy-ab&ved=0ahUKEwjqycHHzYHuAhUlBKYKHTxdCDUQ4dUDCA0&uact=5'
         },
         3:{
           name: '天醫',
-          num: ["13","27","31","49","68","72","86","94"]
+          num: ["13","27","31","49","68","72","86","94"],
+          searchUrl:'https://www.google.com.tw/search?sxsrf=ALeKk00x-kF-mkuD4V8Q3kqblqfYCFqUWA%3A1609740458405&ei=qrDyX4-cGI7c0gTevqugDg&q=%E6%98%93%E7%B6%93+%E5%A4%A9%E9%86%AB&oq=%E6%98%93%E7%B6%93+%E5%A4%A9%E9%86%AB&gs_lcp=CgZwc3ktYWIQAzIECCMQJzoFCCEQoAFQ7L0JWPfOCWDb1gloAnAAeACAAXuIAZQDkgEDMi4ymAEAoAECoAEBqgEHZ3dzLXdpesABAQ&sclient=psy-ab&ved=0ahUKEwiPmdDBzoHuAhUOrpQKHV7fCuQQ4dUDCA0&uact=5'
         },
         4:{
           name: '禍害',
-          num: ["17","23","32","46","64","71","89","98"]
+          num: ["17","23","32","46","64","71","89","98"],
+          searchUrl:'https://www.google.com.tw/search?sxsrf=ALeKk01qgcGAzOzFQLRNuFkxV6uQgBSFNw%3A1609740385149&ei=YbDyX_DkCLLFmAXu3IPgAQ&q=%E6%98%93%E7%B6%93+%E7%A6%8D%E5%AE%B3&oq=%E6%98%93%E7%B6%93+%E7%A6%8D%E5%AE%B3&gs_lcp=CgZwc3ktYWIQAzICCAA6BAgjECc6BQgAEM0CULB5WPSFAWCliwFoAXAAeACAAaMBiAHmA5IBAzEuM5gBAKABAqABAaoBB2d3cy13aXrAAQE&sclient=psy-ab&ved=0ahUKEwiwmdmezoHuAhWyIqYKHW7uABwQ4dUDCA0&uact=5'
         },
         5:{
           name: '六煞',
-          num: ["16","29","38","47","61","74","83","92"]
+          num: ["16","29","38","47","61","74","83","92"],
+          searchUrl:'https://www.google.com.tw/search?sxsrf=ALeKk03Ezd7hQDy2ujcP1sSl31KRUV2iVg%3A1609740403720&ei=c7DyX7bKK6ummAWlsLm4Cw&q=%E6%98%93%E7%B6%93+%E5%85%AD%E7%85%9E&oq=%E6%98%93%E7%B6%93+%E5%85%AD%E7%85%9E&gs_lcp=CgZwc3ktYWIQAzICCAA6BAgjECdQr2VYr2VgrmtoAXAAeACAAWyIAZ8CkgEDMS4ymAEAoAECoAEBqgEHZ3dzLXdpesABAQ&sclient=psy-ab&ved=0ahUKEwj2z8anzoHuAhUrE6YKHSVYDrcQ4dUDCA0&uact=5'
         },
         6:{
           name: '絕命',
-          num: ["12","21","37","48","69","73","84","96"]
+          num: ["12","21","37","48","69","73","84","96"],
+          searchUrl:'https://www.google.com.tw/search?sxsrf=ALeKk03-riZV9TQLr9amU9Zo-R1NdQ0Mig%3A1609740418184&ei=grDyX_bhCpDU0gTCyrO4Cg&q=%E6%98%93%E7%B6%93+%E7%B5%95%E5%91%BD&oq=%E6%98%93%E7%B6%93+%E7%B5%95%E5%91%BD&gs_lcp=CgZwc3ktYWIQAzICCAA6BAgjECdQpI4BWKSOAWDPqwFoAXAAeACAAWKIAYECkgEBM5gBAKABAqABAaoBB2d3cy13aXrAAQE&sclient=psy-ab&ved=0ahUKEwj2qrmuzoHuAhUQqpQKHULlDKcQ4dUDCA0&uact=5'
         },
         7:{
           name: '五鬼',
-          num: ["18","24","36","42","63","79","81","97"]
+          num: ["18","24","36","42","63","79","81","97"],
+          searchUrl:'https://www.google.com.tw/search?sxsrf=ALeKk032jL0CCQv7ujOPFGITywTUvElbxw%3A1609740440878&ei=mLDyX9eKNYLWmAXQ576gCw&q=%E6%98%93%E7%B6%93+%E4%BA%94%E9%AC%BC&oq=%E6%98%93%E7%B6%93+%E4%BA%94%E9%AC%BC&gs_lcp=CgZwc3ktYWIQAzICCAA6BAgjECdQ2HtY2Htgy4IBaABwAHgAgAFYiAH2AZIBATOYAQCgAQKgAQGqAQdnd3Mtd2l6wAEB&sclient=psy-ab&ved=0ahUKEwjXtqK5zoHuAhUCK6YKHdCzD7QQ4dUDCA0&uact=5'
         }
       },
       checkResultData: [],
@@ -185,7 +193,7 @@ export default {
         for (let i in this.numData) {
           for (let j in this.numData[i].num) {
             if (element == this.numData[i].num[j]) {
-              return [element,this.numData[i].name]
+              return [element,this.numData[i].name,this.numData[i].searchUrl]
             }
           }
         }
@@ -223,7 +231,7 @@ export default {
       this.idResult=this.remove0055(idData1)
     },
     idResultLimit(id) {
-      let lowerLimit = id
+      let lowerLimit = id+1
       let upperLimit = id+13
       for(let i=0;i<this.idResult.length;i++) {
         if( id > 0 ){
@@ -274,11 +282,10 @@ dark_color = #cbb88a
       font-size 4vh
       color #eee
       background-color dark_color
-      &:focus
+      &.router-link-exact-active
         background-color light_color
         color black
-
-
+        
 .page-enter-active,.page-leave-active
   transition 0.5s
 .page-enter,.page-leave-to
