@@ -1,7 +1,7 @@
 <script setup>
 import { computed } from 'vue'
 
-// 每組數字一欄，右起左讀；showAges 時欄寬等於該組管的年數
+// 每組數字一欄，左起右讀（和號碼、年齡同方向）；showAges 時欄寬等於該組管的年數
 const props = defineProps({
   results: { type: Array, required: true },
   showAges: { type: Boolean, default: false },
@@ -92,14 +92,13 @@ const bad = computed(() => props.results.filter(r => !r.lucky))
   flex-grow 1
   list-style none
   display flex
-  flex-direction row-reverse
   border-top 2px solid ink
   border-bottom 1px solid ink
   li
     flex 1 1 0
     min-width 0
     border-left 1px solid ink
-    &:last-child
+    &:first-child
       border-left none
 
 .col

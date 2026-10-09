@@ -52,9 +52,9 @@
       "name": "曆欄",
       "kind": "custom",
       "refersTo": "almanac-column",
-      "description": "每組號碼一欄，右起左讀；吉欄朱圈，凶欄墨圈加斜線網底。",
+      "description": "每組號碼一欄，左起右讀；吉欄朱圈，凶欄墨圈加斜線網底。",
       "html": "<ol class=\"ds-cols\"><li><button class=\"ds-col\" type=\"button\"><span class=\"ds-pair\">78</span><span class=\"ds-name\">延年</span><span class=\"ds-level\">2級</span><span class=\"ds-mark\">吉</span></button></li><li><button class=\"ds-col ds-unlucky\" type=\"button\"><span class=\"ds-pair\">46</span><span class=\"ds-name\">禍害</span><span class=\"ds-level\">3級</span><span class=\"ds-mark\">凶</span></button></li><li><button class=\"ds-col\" type=\"button\"><span class=\"ds-pair\">99</span><span class=\"ds-name\">伏位</span><span class=\"ds-level\"></span><span class=\"ds-mark\">吉</span></button></li></ol>",
-      "css": ".ds-cols { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: row-reverse; border-top: 2px solid #1b1b1b; border-bottom: 1px solid #1b1b1b; background: #efe3b4; font-family: 'Noto Serif TC', serif; } .ds-cols li { flex: 1 1 0; min-width: 0; border-left: 1px solid #1b1b1b; } .ds-cols li:last-child { border-left: none; } .ds-col { width: 100%; min-height: 240px; display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 8px 0 10px; border: none; background: none; color: #1b1b1b; font: inherit; cursor: pointer; transition: background-color 0.2s; } .ds-col:hover { background-color: rgba(176,30,35,0.08); } .ds-col:focus-visible { outline: 2px solid #b01e23; outline-offset: 2px; } .ds-unlucky { background-image: repeating-linear-gradient(135deg, transparent 0 6px, rgba(27,27,27,0.08) 6px 7px); } .ds-unlucky:hover { background-color: rgba(27,27,27,0.06); } .ds-pair { align-self: stretch; text-align: center; padding-bottom: 6px; border-bottom: 1px solid #1b1b1b; font-size: 1.05rem; font-weight: 900; } .ds-name { writing-mode: vertical-rl; flex-grow: 1; font-size: 1.5rem; font-weight: 900; letter-spacing: 0.35em; } .ds-level { min-height: 1.2em; font-size: 0.75rem; color: #5b4f3a; } .ds-mark { display: inline-flex; align-items: center; justify-content: center; width: 1.9em; height: 1.9em; border: 2px solid #b01e23; border-radius: 50%; color: #b01e23; font-size: 0.95rem; font-weight: 900; } .ds-unlucky .ds-mark { border-color: #1b1b1b; color: #1b1b1b; }"
+      "css": ".ds-cols { list-style: none; margin: 0; padding: 0; display: flex; border-top: 2px solid #1b1b1b; border-bottom: 1px solid #1b1b1b; background: #efe3b4; font-family: 'Noto Serif TC', serif; } .ds-cols li { flex: 1 1 0; min-width: 0; border-left: 1px solid #1b1b1b; } .ds-cols li:first-child { border-left: none; } .ds-col { width: 100%; min-height: 240px; display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 8px 0 10px; border: none; background: none; color: #1b1b1b; font: inherit; cursor: pointer; transition: background-color 0.2s; } .ds-col:hover { background-color: rgba(176,30,35,0.08); } .ds-col:focus-visible { outline: 2px solid #b01e23; outline-offset: 2px; } .ds-unlucky { background-image: repeating-linear-gradient(135deg, transparent 0 6px, rgba(27,27,27,0.08) 6px 7px); } .ds-unlucky:hover { background-color: rgba(27,27,27,0.06); } .ds-pair { align-self: stretch; text-align: center; padding-bottom: 6px; border-bottom: 1px solid #1b1b1b; font-size: 1.05rem; font-weight: 900; } .ds-name { writing-mode: vertical-rl; flex-grow: 1; font-size: 1.5rem; font-weight: 900; letter-spacing: 0.35em; } .ds-level { min-height: 1.2em; font-size: 0.75rem; color: #5b4f3a; } .ds-mark { display: inline-flex; align-items: center; justify-content: center; width: 1.9em; height: 1.9em; border: 2px solid #b01e23; border-radius: 50%; color: #b01e23; font-size: 0.95rem; font-weight: 900; } .ds-unlucky .ds-mark { border-color: #1b1b1b; color: #1b1b1b; }"
     },
     {
       "name": "吉凶小計與宜忌朱印",
@@ -102,7 +102,7 @@
     "overview": "整個介面是一張便宜的曆紙：黃底、墨黑字、一支朱筆。號碼不是填進表單再吐出卡片清單，而是直接印在紙上，每兩位數成為一欄，星名直排、欄由右往左讀，吉凶像曆書上的朱圈與墨圈。拿掉所有文字，仍然認得出這是曆書版面：雙線外框、墨色細直欄線、斜線網底的凶欄、底部的宜／忌。\n\n密度偏高但不擁擠：一屏內放完輸入、吉凶小計、流派選擇與八到九欄結果。裝飾全部來自印刷語彙（雙線、細線、網底、圈註、朱印），沒有卡片、沒有陰影、沒有漸層色塊。使用者明確拒絕廟宇風（金紅、羅盤、八卦堆滿）與影響閱讀的花俏，所以朱紅只有一種、沒有金色，也沒有任何吉祥圖騰。",
     "keyCharacteristics": [
       "曆紙黃底 + 墨黑 + 單一朱紅，三色就是全部",
-      "欄位式版面：每組號碼一欄，右起左讀，星名直排",
+      "欄位式版面：每組號碼一欄，左起右讀，星名直排",
       "吉用朱圈、凶用墨圈加斜線網底，不靠第二個色相分吉凶",
       "直角、細線、雙線外框；圓形只出現在「圈註」",
       "全站一套宋體（Noto Serif TC 500/900），數字等寬"
@@ -118,7 +118,7 @@
     "dos": [
       "**Do** 只用三種顏色角色：曆紙、墨、朱（含深朱狀態）。",
       "**Do** 用 135° 細斜線網底 + 墨圈表示凶，不用新色相。",
-      "**Do** 把結果排成欄、右起左讀、星名直排。",
+      "**Do** 把結果排成欄、左起右讀、星名直排。",
       "**Do** 用線條分隔層次：3px 雙線、2px、1px 三級。",
       "**Do** 只用 Noto Serif TC 的 500 與 900，數字等寬。",
       "**Do** 互動元素至少 44px 高（關閉鈕、展開列；導覽 56px）。",
