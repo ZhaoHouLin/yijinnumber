@@ -4,8 +4,9 @@
 Demo網頁:https://zhaohoulin.github.io/yijinnumber/#/
 
 ## 執行畫面
-![image](demo/1.jpg)
-![image](demo/2.jpg)
+![算手機能量（桌機）](demo/1.jpg)
+![算流年（桌機）](demo/2.jpg)
+![手機版：算手機能量、算流年、星的說明卡](demo/3.jpg)
 
 ## 開發
 
