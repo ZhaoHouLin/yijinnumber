@@ -1,0 +1,135 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-09T14:00:00+08:00",
+  "title": "Design System: 易經數字能量",
+  "extensions": {
+    "colorMeta": {
+      "cinnabar": { "role": "primary", "displayName": "朱砂紅 Cinnabar", "canonical": "#b01e23", "tonalRamp": ["oklch(15% 0.06 25)", "oklch(25% 0.1 25)", "oklch(35% 0.14 25)", "oklch(45% 0.17 25)", "oklch(55% 0.18 25)", "oklch(65% 0.14 25)", "oklch(80% 0.07 25)", "oklch(95% 0.02 25)"] },
+      "cinnabar-deep": { "role": "primary", "displayName": "深朱 Cinnabar Deep", "canonical": "#8c1519", "tonalRamp": ["oklch(15% 0.06 25)", "oklch(25% 0.1 25)", "oklch(35% 0.13 25)", "oklch(45% 0.15 25)", "oklch(55% 0.15 25)", "oklch(65% 0.12 25)", "oklch(80% 0.06 25)", "oklch(95% 0.02 25)"] },
+      "cinnabar-tint": { "role": "primary", "displayName": "朱底淡字 Cinnabar Tint", "canonical": "#f6d9d9", "tonalRamp": ["oklch(15% 0.03 15)", "oklch(25% 0.035 15)", "oklch(35% 0.035 15)", "oklch(45% 0.035 15)", "oklch(55% 0.035 15)", "oklch(65% 0.035 15)", "oklch(80% 0.035 15)", "oklch(95% 0.02 15)"] },
+      "almanac-paper": { "role": "neutral", "displayName": "曆紙黃 Almanac Paper", "canonical": "#efe3b4", "tonalRamp": ["oklch(15% 0.02 92)", "oklch(25% 0.03 92)", "oklch(35% 0.045 92)", "oklch(45% 0.06 92)", "oklch(55% 0.065 92)", "oklch(65% 0.065 92)", "oklch(80% 0.065 92)", "oklch(95% 0.04 92)"] },
+      "almanac-paper-deep": { "role": "neutral", "displayName": "深曆紙 Almanac Paper Deep", "canonical": "#e4d49c", "tonalRamp": ["oklch(15% 0.02 92)", "oklch(25% 0.035 92)", "oklch(35% 0.05 92)", "oklch(45% 0.065 92)", "oklch(55% 0.08 92)", "oklch(65% 0.08 92)", "oklch(80% 0.08 92)", "oklch(95% 0.04 92)"] },
+      "ink": { "role": "neutral", "displayName": "墨黑 Ink", "canonical": "#1b1b1b", "tonalRamp": ["oklch(15% 0 0)", "oklch(25% 0 0)", "oklch(35% 0 0)", "oklch(45% 0 0)", "oklch(55% 0 0)", "oklch(65% 0 0)", "oklch(80% 0 0)", "oklch(95% 0 0)"] },
+      "ink-faded": { "role": "neutral", "displayName": "褪墨 Ink Faded", "canonical": "#5b4f3a", "tonalRamp": ["oklch(15% 0.015 80)", "oklch(25% 0.025 80)", "oklch(35% 0.03 80)", "oklch(45% 0.035 80)", "oklch(55% 0.035 80)", "oklch(65% 0.035 80)", "oklch(80% 0.03 80)", "oklch(95% 0.015 80)"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "刊頭", "purpose": "刊頭「易經數字能量」，朱紅 900；桌機 2rem。" },
+      "numeral": { "displayName": "號碼", "purpose": "號碼輸入本身，像印出來的號碼。" },
+      "headline": { "displayName": "說明卡星名", "purpose": "說明卡標題。" },
+      "title": { "displayName": "欄位星名", "purpose": "曆欄中直排的星名；桌機 1.8rem。" },
+      "body": { "displayName": "內文", "purpose": "小計、宜忌、說明內文。" },
+      "label": { "displayName": "小字", "purpose": "能量等級、年齡、提示、註記，褪墨色。" }
+    },
+    "shadows": [],
+    "textures": [
+      { "name": "unlucky-hatch", "value": "repeating-linear-gradient(135deg, transparent 0 6px, rgba(27,27,27,0.08) 6px 7px)", "purpose": "凶欄的細斜線網底，取代另一個顏色。" },
+      { "name": "empty-grid", "value": "linear-gradient(90deg, transparent calc(100% - 1px), rgba(27,27,27,0.18) 0) / 11.111% 100%", "purpose": "空狀態的九欄淡墨格線。" },
+      { "name": "dialog-backdrop", "value": "rgba(27,27,27,0.45)", "purpose": "說明卡背後的遮罩。" }
+    ],
+    "motion": [
+      { "name": "ease-ink", "value": "cubic-bezier(0.16, 1, 0.3, 1)", "purpose": "墨跡印上、圈註蓋下、說明卡進場的共同緩動。" },
+      { "name": "ink-bleed", "value": "opacity + filter blur(4px→0) 0.5s ease-ink", "purpose": "新的一欄印上。" },
+      { "name": "stamp", "value": "scale(1.6→1) + opacity 0.35s, delay 0.2s, ease-ink", "purpose": "吉凶圈隨後蓋下。" },
+      { "name": "card-open", "value": "translateY(8px→0) + opacity 0.3s ease-ink", "purpose": "說明卡進場。" },
+      { "name": "page-fade", "value": "opacity 0.25s", "purpose": "切換分頁。" },
+      { "name": "state", "value": "0.2s", "purpose": "hover 底色、文字與框色變化。" }
+    ],
+    "breakpoints": [
+      { "name": "narrow-aged", "value": "max-width: 599px" },
+      { "name": "desktop", "value": "min-width: 800px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "號碼輸入",
+      "kind": "input",
+      "refersTo": "number-input",
+      "description": "只有底線的號碼輸入，就是印出來的號碼本身。",
+      "html": "<input class=\"ds-number-input\" type=\"tel\" placeholder=\"輸入手機號碼\" value=\"0912345678\">",
+      "css": ".ds-number-input { display: block; width: 100%; padding: 4px 0; border: none; border-bottom: 2px solid #1b1b1b; background: none; color: #1b1b1b; font-family: 'Noto Serif TC', serif; font-weight: 900; font-size: 2.25rem; letter-spacing: 0.12em; text-align: center; font-variant-numeric: tabular-nums; caret-color: #b01e23; transition: border-color 0.2s; } .ds-number-input::placeholder { color: #5b4f3a; font-size: 1.25rem; font-weight: 500; letter-spacing: 0.2em; } .ds-number-input:focus { outline: none; border-bottom-color: #b01e23; }"
+    },
+    {
+      "name": "曆欄",
+      "kind": "custom",
+      "refersTo": "almanac-column",
+      "description": "每組號碼一欄，右起左讀；吉欄朱圈，凶欄墨圈加斜線網底。",
+      "html": "<ol class=\"ds-cols\"><li><button class=\"ds-col\" type=\"button\"><span class=\"ds-pair\">78</span><span class=\"ds-name\">延年</span><span class=\"ds-level\">2級</span><span class=\"ds-mark\">吉</span></button></li><li><button class=\"ds-col ds-unlucky\" type=\"button\"><span class=\"ds-pair\">46</span><span class=\"ds-name\">禍害</span><span class=\"ds-level\">3級</span><span class=\"ds-mark\">凶</span></button></li><li><button class=\"ds-col\" type=\"button\"><span class=\"ds-pair\">99</span><span class=\"ds-name\">伏位</span><span class=\"ds-level\"></span><span class=\"ds-mark\">吉</span></button></li></ol>",
+      "css": ".ds-cols { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: row-reverse; border-top: 2px solid #1b1b1b; border-bottom: 1px solid #1b1b1b; background: #efe3b4; font-family: 'Noto Serif TC', serif; } .ds-cols li { flex: 1 1 0; min-width: 0; border-left: 1px solid #1b1b1b; } .ds-cols li:last-child { border-left: none; } .ds-col { width: 100%; min-height: 240px; display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 8px 0 10px; border: none; background: none; color: #1b1b1b; font: inherit; cursor: pointer; transition: background-color 0.2s; } .ds-col:hover { background-color: rgba(176,30,35,0.08); } .ds-col:focus-visible { outline: 2px solid #b01e23; outline-offset: 2px; } .ds-unlucky { background-image: repeating-linear-gradient(135deg, transparent 0 6px, rgba(27,27,27,0.08) 6px 7px); } .ds-unlucky:hover { background-color: rgba(27,27,27,0.06); } .ds-pair { align-self: stretch; text-align: center; padding-bottom: 6px; border-bottom: 1px solid #1b1b1b; font-size: 1.05rem; font-weight: 900; } .ds-name { writing-mode: vertical-rl; flex-grow: 1; font-size: 1.5rem; font-weight: 900; letter-spacing: 0.35em; } .ds-level { min-height: 1.2em; font-size: 0.75rem; color: #5b4f3a; } .ds-mark { display: inline-flex; align-items: center; justify-content: center; width: 1.9em; height: 1.9em; border: 2px solid #b01e23; border-radius: 50%; color: #b01e23; font-size: 0.95rem; font-weight: 900; } .ds-unlucky .ds-mark { border-color: #1b1b1b; color: #1b1b1b; }"
+    },
+    {
+      "name": "吉凶小計與宜忌朱印",
+      "kind": "custom",
+      "refersTo": "verdict-stamp",
+      "description": "欄區上方的吉凶小計（朱紅漢字數字）與下方的宜／忌朱印。",
+      "html": "<p class=\"ds-tally\"><span>吉<b>五</b></span><span>凶<b>三</b></span></p><p class=\"ds-verdict\"><span><b>宜</b>伏位、延年、生氣</span><span><b>忌</b>絕命、禍害</span></p>",
+      "css": ".ds-tally, .ds-verdict { font-family: 'Noto Serif TC', serif; color: #1b1b1b; margin: 0; } .ds-tally { display: flex; justify-content: center; gap: 1.5em; font-size: 1rem; margin-bottom: 10px; } .ds-tally b { margin-left: 0.3em; color: #b01e23; font-weight: 900; font-size: 1.35rem; } .ds-verdict { display: flex; flex-wrap: wrap; gap: 4px 1.5em; font-size: 0.9rem; } .ds-verdict b { display: inline-flex; align-items: center; justify-content: center; width: 1.6em; height: 1.6em; margin-right: 0.5em; background: #b01e23; color: #efe3b4; font-weight: 900; }"
+    },
+    {
+      "name": "流派圈選",
+      "kind": "chip",
+      "refersTo": "zero-rule-option-selected",
+      "description": "單選文字選項，選中者以朱筆橢圓圈起。",
+      "html": "<fieldset class=\"ds-zero\"><legend>零的算法</legend><label class=\"ds-on\"><input type=\"radio\" name=\"ds-z\" checked>0 變伏位</label><label><input type=\"radio\" name=\"ds-z\">00 也算伏位</label><label><input type=\"radio\" name=\"ds-z\">中間 0 跳過</label></fieldset>",
+      "css": ".ds-zero { border: none; display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 4px; margin: 0; padding: 0; font-family: 'Noto Serif TC', serif; font-size: 0.9rem; } .ds-zero legend { width: 100%; text-align: center; margin-bottom: 2px; font-weight: 900; color: #1b1b1b; } .ds-zero label { position: relative; padding: 6px 10px; border: 2px solid transparent; border-radius: 50%; cursor: pointer; color: #5b4f3a; transition: color 0.2s, border-color 0.2s; } .ds-zero label:hover { color: #1b1b1b; } .ds-zero .ds-on { border-color: #b01e23; color: #1b1b1b; font-weight: 900; } .ds-zero label:has(input:focus-visible) { outline: 2px solid #b01e23; outline-offset: 2px; } .ds-zero input { position: absolute; opacity: 0; pointer-events: none; }"
+    },
+    {
+      "name": "底部導覽",
+      "kind": "nav",
+      "refersTo": "tab",
+      "description": "朱紅實底的兩個分頁，目前分頁為深朱底白字。",
+      "html": "<nav class=\"ds-tabs\"><a href=\"#\" class=\"ds-active\">算手機能量</a><a href=\"#\">算流年</a></nav>",
+      "css": ".ds-tabs { display: flex; background: #b01e23; font-family: 'Noto Serif TC', serif; } .ds-tabs a { flex: 1; display: flex; align-items: center; justify-content: center; min-height: 56px; color: #f6d9d9; text-decoration: none; font-size: 1.05rem; letter-spacing: 0.1em; transition: background-color 0.2s; } .ds-tabs a:hover { background: #8c1519; } .ds-tabs a.ds-active { background: #8c1519; color: #fff; font-weight: 900; } .ds-tabs a:focus-visible { outline: 2px solid #efe3b4; outline-offset: -6px; }"
+    },
+    {
+      "name": "說明卡",
+      "kind": "card",
+      "refersTo": "star-card",
+      "description": "點欄位翻出的星名說明頁：曆紙底、朱紅雙線框、無陰影。",
+      "html": "<div class=\"ds-card\"><header><h3>延年</h3><span class=\"ds-ring\">吉</span><button class=\"ds-close\" type=\"button\" aria-label=\"關閉\"><svg viewBox=\"0 0 20 20\" width=\"20\" height=\"20\" aria-hidden=\"true\"><path d=\"M4 4l12 12M16 4L4 16\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"square\"/></svg></button></header><p class=\"ds-meta\">數字 78・能量 2 級（1 級最強）</p><p class=\"ds-keyword\">責任、領導</p><dl><dt>優點</dt><dd>有擔當</dd><dt>缺點</dt><dd>太操勞</dd></dl><a class=\"ds-more\" href=\"#\">到 Google 搜尋更多</a></div>",
+      "css": ".ds-card { max-width: 360px; border: 3px double #b01e23; padding: 18px 20px 20px; background: #efe3b4; color: #1b1b1b; line-height: 1.7; font-family: 'Noto Serif TC', serif; } .ds-card header { display: flex; align-items: center; gap: 10px; border-bottom: 2px solid #b01e23; padding-bottom: 8px; margin-bottom: 8px; } .ds-card h3 { margin: 0; font-size: 1.8rem; font-weight: 900; letter-spacing: 0.2em; } .ds-ring { display: inline-flex; align-items: center; justify-content: center; width: 2em; height: 2em; border: 2px solid #b01e23; border-radius: 50%; color: #b01e23; font-weight: 900; } .ds-close { margin-left: auto; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; border: none; background: none; color: #1b1b1b; cursor: pointer; } .ds-close:hover { color: #b01e23; } .ds-close:focus-visible { outline: 2px solid #b01e23; outline-offset: 2px; } .ds-meta { margin: 0; font-size: 0.85rem; color: #5b4f3a; } .ds-keyword { color: #b01e23; font-weight: 900; margin: 8px 0 4px; } .ds-card dl { display: grid; grid-template-columns: auto 1fr; gap: 2px 10px; margin: 10px 0 14px; padding-top: 10px; border-top: 1px solid #1b1b1b; } .ds-card dt { font-weight: 900; } .ds-card dd { margin: 0; } .ds-more { color: #b01e23; font-size: 0.9rem; text-underline-offset: 4px; } .ds-more:hover { color: #8c1519; }"
+    },
+    {
+      "name": "紙張外框與刊頭",
+      "kind": "custom",
+      "refersTo": "display",
+      "description": "3px 朱紅雙線外框，刊頭左側朱紅標題、右側直排頁名。",
+      "html": "<div class=\"ds-sheet\"><header class=\"ds-masthead\"><h1>易經數字能量</h1><span class=\"ds-pagename\">手機號碼</span></header></div>",
+      "css": ".ds-sheet { max-width: 760px; border: 3px double #b01e23; padding: 12px 12px 16px; background: #efe3b4; color: #1b1b1b; font-family: 'Noto Serif TC', serif; } .ds-masthead { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #b01e23; padding-bottom: 8px; } .ds-masthead h1 { margin: 0; color: #b01e23; font-weight: 900; font-size: 1.6rem; letter-spacing: 0.25em; } .ds-pagename { writing-mode: vertical-rl; font-weight: 900; letter-spacing: 0.15em; border-left: 1px solid #b01e23; padding-left: 6px; min-height: 4.5em; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "一頁農民曆",
+    "overview": "整個介面是一張便宜的曆紙：黃底、墨黑字、一支朱筆。號碼不是填進表單再吐出卡片清單，而是直接印在紙上，每兩位數成為一欄，星名直排、欄由右往左讀，吉凶像曆書上的朱圈與墨圈。拿掉所有文字，仍然認得出這是曆書版面：雙線外框、墨色細直欄線、斜線網底的凶欄、底部的宜／忌。\n\n密度偏高但不擁擠：一屏內放完輸入、吉凶小計、流派選擇與八到九欄結果。裝飾全部來自印刷語彙（雙線、細線、網底、圈註、朱印），沒有卡片、沒有陰影、沒有漸層色塊。使用者明確拒絕廟宇風（金紅、羅盤、八卦堆滿）與影響閱讀的花俏，所以朱紅只有一種、沒有金色，也沒有任何吉祥圖騰。",
+    "keyCharacteristics": [
+      "曆紙黃底 + 墨黑 + 單一朱紅，三色就是全部",
+      "欄位式版面：每組號碼一欄，右起左讀，星名直排",
+      "吉用朱圈、凶用墨圈加斜線網底，不靠第二個色相分吉凶",
+      "直角、細線、雙線外框；圓形只出現在「圈註」",
+      "全站一套宋體（Noto Serif TC 500/900），數字等寬"
+    ],
+    "rules": [
+      { "name": "The One Cinnabar Rule", "body": "只有一種紅（加上它的深色狀態）。不加金色、不加第二個強調色；需要區分時用墨與網底，不用新色相。", "section": "colors" },
+      { "name": "The Ink-Not-Color Rule", "body": "凶不是另一個顏色：凶欄是墨圈加 135° 細斜線網底（ink 8% 不透明，每 7px 一條 1px 線）。", "section": "colors" },
+      { "name": "The Two Weights Rule", "body": "只用 500 與 900。強調就是 900，不出現 600/700 的中間值。", "section": "typography" },
+      { "name": "The Vertical Name Rule", "body": "星名與頁名直排（`writing-mode: vertical-rl`），號碼與數字橫排。", "section": "typography" },
+      { "name": "The Printed-Not-Lifted Rule", "body": "層次用線與網底表達，不用陰影；需要聚焦時用遮罩壓暗背景，而不是讓物件浮起。", "section": "elevation" },
+      { "name": "The Only-Rings-Are-Round Rule", "body": "50% 圓角只給圈註使用，表示「用筆圈起來」；任何容器或按鈕都不得帶圓角。", "section": "shapes" }
+    ],
+    "dos": [
+      "**Do** 只用三種顏色角色：曆紙、墨、朱（含深朱狀態）。",
+      "**Do** 用 135° 細斜線網底 + 墨圈表示凶，不用新色相。",
+      "**Do** 把結果排成欄、右起左讀、星名直排。",
+      "**Do** 用線條分隔層次：3px 雙線、2px、1px 三級。",
+      "**Do** 只用 Noto Serif TC 的 500 與 900，數字等寬。",
+      "**Do** 互動元素至少 44px 高（關閉鈕、展開列；導覽 56px）。",
+      "**Do** 所有動態提供 `prefers-reduced-motion` 關閉路徑。"
+    ],
+    "donts": [
+      "**Don't** 加金色、羅盤、八卦或其他廟宇裝飾（使用者明確拒絕）。",
+      "**Don't** 用 box-shadow 或漸層製造浮起感。",
+      "**Don't** 給容器、輸入或按鈕圓角；圓形只屬於圈註。",
+      "**Don't** 把結果做成卡片清單或給號碼輸入加外框。",
+      "**Don't** 加入第二套字體或 600/700 字重。"
+    ]
+  }
+}

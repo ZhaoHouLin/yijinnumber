@@ -1,49 +1,22 @@
-primary_color = #ffeaba
-light_color = #ffffed
-dark_color = #cbb88a
+// 農民曆：曆紙黃、墨黑、單一朱紅
+paper = #efe3b4
+paper_deep = #e4d49c
+ink = #1b1b1b
+ink_soft = #5b4f3a
+red = #b01e23
+red_deep = #8c1519
 
-size(w = 100%, h = w)
-  width w
-  height h
+font_serif = 'Noto Serif TC', 'Noto Serif CJK TC', 'PMingLiU', serif
 
-flexCenter(j = center, a = center, d = row)
-  flex-direction d
-  display flex
-  justify-content j
-  align-items a
+// 凶欄的細斜線網底
+hatch()
+  background-image repeating-linear-gradient(135deg, transparent 0 6px, rgba(27,27,27,0.08) 6px 7px)
 
-posCenter()
-  position absolute
-  left 50%
-  top 50%
-  transform translate(-50%,-50%)
-
-abpos(l = initial, t = initial)
-  position absolute
-  left l
-  top t
-
-random(min, max)
-  return floor(math(0, 'random') * (max - min + 1) + min)
-
-*
-  margin 0
-  padding 0
-  font-family 'Noto Sans TC', 'Microsoft JhengHei', '微軟正黑體', sans-serif
-  box-sizing border-box
-  h1
-    font-size 8vh
-    text-shadow 12px 12px 8px rgba(0,0,0,0.2)
-  i 
-    font-size 4vh
-
-html, body
-  overflow hidden
-
-@keyframes rotate
-  0%
-    transform rotate(0deg)
-
-  100%
-    transform rotate(360deg)
-
+// 圈註：吉凶、選取的流派
+ring(c = red)
+  display inline-flex
+  align-items center
+  justify-content center
+  border 2px solid c
+  border-radius 50%
+  color c

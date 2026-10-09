@@ -11,6 +11,7 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@fontsource/noto-serif-tc": "^5.3.0",
     "vue": "^3.5.43",
     "vue-router": "^4.6.4"
   },

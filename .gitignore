@@ -19,3 +19,9 @@ yarn-error.log*
 *.njsproj
 *.sln
 *.sw?
+
+# impeccable 的樣板圖、截圖與暫存
+/.impeccable/mocks
+/.impeccable/review
+/.impeccable/questions
+/.impeccable/hook.cache.json
