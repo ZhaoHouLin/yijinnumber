@@ -51,27 +51,40 @@ function resolveFives(input) {
   return out
 }
 
-// 0 是隱藏數：含 0 的組合變成另一位數的伏位
-function resolveZeros(pairs) {
-  return pairs.map(p => {
-    if (p[1] === '0') return p[0] + p[0]
-    if (p[0] === '0') return p[1] + p[1]
-    return p
-  })
+// 0 是隱藏數，各流派算法不同：
+// standard   含 0 的組合變成另一位數的伏位（00 刪除）
+// keepDouble 同上，但連續的 0（00）保留為伏位
+// skipMiddle 中間的 0 直接跳過、前後數字相接並標為隱藏；頭尾的 0 仍變伏位
+export const ZERO_RULES = ['standard', 'keepDouble', 'skipMiddle']
+
+function resolveZeros(pairs, zeroRule) {
+  const out = []
+  for (let i = 0; i < pairs.length; i++) {
+    const cur = pairs[i]
+    const next = pairs[i + 1]
+    if (zeroRule === 'skipMiddle' && cur[0] !== '0' && cur[1] === '0' && next && next[0] === '0' && next[1] !== '0') {
+      out.push({ pair: cur[0] + next[1], hidden: true })
+      i++
+    }
+    else if (cur[1] === '0') out.push({ pair: cur[0] + cur[0] })
+    else if (cur[0] === '0') out.push({ pair: cur[1] + cur[1] })
+    else out.push({ pair: cur })
+  }
+  return out
 }
 
-function analyzeDigits(digits) {
-  const pairs = toPairs(digits).filter(p => p !== '55' && p !== '00')
-  return resolveZeros(resolveFives(pairs))
-    .filter(pair => STAR_BY_PAIR.has(pair))
-    .map(pair => {
+function analyzeDigits(digits, { zeroRule = 'standard' } = {}) {
+  const pairs = toPairs(digits).filter(p => p !== '55' && (p !== '00' || zeroRule === 'keepDouble'))
+  return resolveZeros(resolveFives(pairs), zeroRule)
+    .filter(({ pair }) => STAR_BY_PAIR.has(pair))
+    .map(({ pair, hidden = false }) => {
       const star = STAR_BY_PAIR.get(pair)
-      return { pair, ...star, url: searchUrl(star.name) }
+      return { pair, hidden, ...star, url: searchUrl(star.name) }
     })
 }
 
-export function analyzePhone(input) {
-  return analyzeDigits(String(input).replace(/\D/g, ''))
+export function analyzePhone(input, options) {
+  return analyzeDigits(String(input).replace(/\D/g, ''), options)
 }
 
 // 身分證字母轉兩位數：A=01 … Z=26（數字易經流派用法，非內政部的 A=10）
@@ -80,12 +93,12 @@ const letterToDigits = ch => String(ch.charCodeAt(0) - 64).padStart(2, '0')
 // 第一組管 0–13 歲，之後每組管 5 年
 const ageRange = i => (i === 0 ? [0, 13] : [i * 5 + 8, i * 5 + 13])
 
-export function analyzeId(input) {
+export function analyzeId(input, options) {
   const digits = String(input)
     .toUpperCase()
     .replace(/[^A-Z0-9]/g, '')
     .replace(/[A-Z]/g, letterToDigits)
-  return analyzeDigits(digits).map((r, i) => {
+  return analyzeDigits(digits, options).map((r, i) => {
     const [from, to] = ageRange(i)
     return { ...r, from, to }
   })

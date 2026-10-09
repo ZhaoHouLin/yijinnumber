@@ -58,6 +58,18 @@ describe('analyzePhone', () => {
     expect(liusha).toMatchObject({ pair: '38', name: '六煞', lucky: false, level: 3 })
     expect(fuwei).toMatchObject({ pair: '88', name: '伏位', lucky: true, level: null })
   })
+  it('流派選項：連續的 0 算伏位', () => {
+    expect(analyzePhone('1003').map(r => r.pair)).toEqual(['11', '33'])
+    expect(analyzePhone('1003', { zeroRule: 'keepDouble' }).map(r => [r.pair, r.name])).toEqual([['11', '伏位'], ['00', '伏位'], ['33', '伏位']])
+  })
+  it('流派選項：中間的 0 跳過並標為隱藏，頭尾的 0 仍是伏位', () => {
+    const skip = n => analyzePhone(n, { zeroRule: 'skipMiddle' }).map(r => (r.hidden ? r.pair + '隱' : r.pair))
+    expect(skip('806')).toEqual(['86隱'])
+    expect(skip('8006')).toEqual(['86隱'])
+    expect(skip('0912')).toEqual(['99', '91', '12'])
+    expect(skip('120')).toEqual(['12', '22'])
+    expect(analyzePhone('806').map(r => r.pair)).toEqual(['88', '66'])
+  })
   it('搜尋連結指向該星的 Google 搜尋', () => {
     expect(analyzePhone('19')[0].url).toBe('https://www.google.com/search?q=' + encodeURIComponent('易經 延年'))
   })

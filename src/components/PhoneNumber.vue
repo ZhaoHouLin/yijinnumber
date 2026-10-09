@@ -1,20 +1,26 @@
 <script setup>
 import { ref, computed } from 'vue'
+import { zeroRule } from '../settings.js'
+import ZeroRule from './ZeroRule.vue'
+import StarCard from './StarCard.vue'
 import { analyzePhone } from '../yijing.js'
 
 const phone = ref('')
-const results = computed(() => analyzePhone(phone.value))
+const card = ref(null)
+const results = computed(() => analyzePhone(phone.value, { zeroRule: zeroRule.value }))
 </script>
 
 <template lang='pug'>
 .phoneInfo
   h2 請輸入您的電話號碼
   input#phoneNum(v-model='phone' type='tel' inputmode='numeric' maxlength=10 aria-label='電話號碼' autocomplete='off')
+  ZeroRule
   .phoneResult
     .resultText(v-for='(r, i) in results' :key='i')
       h3 {{ r.pair }}
-      a(:href='r.url' target='_blank' rel='noopener' :class='{ unlucky: !r.lucky }') {{ r.name }}
+      button.star(type='button' :class='{ unlucky: !r.lucky }' @click='card.open(r)') {{ r.name }}{{ r.hidden ? '（隱）' : '' }}
       h5.level(v-if='r.level') {{ r.level }}級
+  StarCard(ref='card')
 </template>
 
 <style lang='stylus' scoped>
@@ -28,10 +34,14 @@ const results = computed(() => analyzePhone(phone.value))
     flex-wrap wrap
     .resultText
       margin 0 8px
-      a
+      .star
+        border none
+        background none
+        padding 0
+        cursor pointer
+        font-size 1rem
         -webkit-writing-mode vertical-lr
         writing-mode vertical-lr
-        text-decoration none
         font-weight bold
         color #8b1a1a
         &.unlucky

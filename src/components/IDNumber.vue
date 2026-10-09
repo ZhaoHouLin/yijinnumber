@@ -1,9 +1,13 @@
 <script setup>
 import { ref, computed } from 'vue'
+import { zeroRule } from '../settings.js'
+import ZeroRule from './ZeroRule.vue'
+import StarCard from './StarCard.vue'
 import { analyzeId } from '../yijing.js'
 
 const id = ref('')
-const results = computed(() => analyzeId(id.value))
+const card = ref(null)
+const results = computed(() => analyzeId(id.value, { zeroRule: zeroRule.value }))
 </script>
 
 <template lang='pug'>
@@ -11,15 +15,17 @@ const results = computed(() => analyzeId(id.value))
   h2 請輸入您的身分證字號
   h4 算人生際遇
   input#idNum(v-model='id' type='text' maxlength=10 aria-label='身分證字號' autocomplete='off' autocapitalize='characters')
+  ZeroRule
   .idResult
     .idResultText(v-for='(r, i) in results' :key='i')
       h3 {{ r.pair }}
-      a(:href='r.url' target='_blank' rel='noopener' :class='{ unlucky: !r.lucky }') {{ r.name }}
+      button.star(type='button' :class='{ unlucky: !r.lucky }' @click='card.open(r)') {{ r.name }}{{ r.hidden ? '（隱）' : '' }}
       h5.level(v-if='r.level') {{ r.level }}級
       h3 {{ r.from }}
       h3 |
       h3 {{ r.to }}
       h4 歲
+  StarCard(ref='card')
 </template>
 
 <style lang='stylus' scoped>
@@ -39,10 +45,14 @@ const results = computed(() => analyzeId(id.value))
       h4
         -webkit-writing-mode vertical-lr
         writing-mode vertical-lr
-      a
+      .star
+        border none
+        background none
+        padding 0
+        cursor pointer
+        font-size 1rem
         -webkit-writing-mode vertical-lr
         writing-mode vertical-lr
-        text-decoration none
         font-weight bold
         color #8b1a1a
         &.unlucky
