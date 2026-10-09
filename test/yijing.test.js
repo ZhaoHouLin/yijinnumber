@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
 import { createRequire } from 'node:module'
-import { analyzePhone, analyzeId } from '../src/yijing.js'
+import { analyzePhone, analyzeId, nextRound } from '../src/yijing.js'
 
 const legacy = createRequire(import.meta.url)('./legacy.cjs')
 
@@ -104,5 +104,18 @@ describe('analyzeId', () => {
         rs.forEach((r, i) => i > 0 && expect([rs[i - 1].to, rs[i - 1].from], input).toContain(r.from))
       }
     }
+  })
+})
+
+describe('nextRound', () => {
+  it('走完一輪後從第一組重頭排，年齡接續上一輪不留空檔', () => {
+    const first = analyzeId('A123456789')
+    const second = nextRound(first)
+    expect(second.map(r => r.pair)).toEqual(first.map(r => r.pair))
+    expect(second[0].from).toBe(first.at(-1).to)
+    expect(second.map(r => [r.from, r.to])).toEqual(first.map(r => [r.from + 58, r.to + 58]))
+  })
+  it('沒有結果時回傳空陣列', () => {
+    expect(nextRound([])).toEqual([])
   })
 })

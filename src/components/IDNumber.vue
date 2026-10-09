@@ -3,11 +3,12 @@ import { ref, computed } from 'vue'
 import { zeroRule } from '../settings.js'
 import ZeroRule from './ZeroRule.vue'
 import StarCard from './StarCard.vue'
-import { analyzeId } from '../yijing.js'
+import { analyzeId, nextRound } from '../yijing.js'
 
 const id = ref('')
 const card = ref(null)
 const results = computed(() => analyzeId(id.value, { zeroRule: zeroRule.value }))
+const rounds = computed(() => [results.value, nextRound(results.value)])
 </script>
 
 <template lang='pug'>
@@ -16,15 +17,18 @@ const results = computed(() => analyzeId(id.value, { zeroRule: zeroRule.value })
   h4 算人生際遇（年齡以虛歲計）
   input#idNum(v-model='id' type='text' maxlength=10 aria-label='身分證字號' autocomplete='off' autocapitalize='characters')
   ZeroRule
-  .idResult
-    .idResultText(v-for='(r, i) in results' :key='i')
-      h3 {{ r.pair }}
-      button.star(type='button' :class='{ unlucky: !r.lucky }' @click='card.open(r)') {{ r.name }}{{ r.hidden ? '（隱）' : '' }}
-      h5.level(v-if='r.level') {{ r.level }}級
-      h3 {{ r.from }}
-      h3 |
-      h3 {{ r.to }}
-      h4 歲
+  template(v-for='(round, n) in rounds' :key='n')
+    component(:is='n ? "details" : "div"' v-if='round.length')
+      summary(v-if='n') 第二輪（{{ round[0].from }} 歲起，從頭再排）
+      .idResult
+        .idResultText(v-for='(r, i) in round' :key='i')
+          h3 {{ r.pair }}
+          button.star(type='button' :class='{ unlucky: !r.lucky }' @click='card.open(r)') {{ r.name }}{{ r.hidden ? '（隱）' : '' }}
+          h5.level(v-if='r.level') {{ r.level }}級
+          h3 {{ r.from }}
+          h3 |
+          h3 {{ r.to }}
+          h4 歲
   StarCard(ref='card')
 </template>
 
@@ -34,6 +38,9 @@ const results = computed(() => analyzeId(id.value, { zeroRule: zeroRule.value })
   background-color dark_color
   size(100%,90vh)
   flex-grow 1
+  summary
+    margin 12px 0 4px
+    cursor pointer
   .idResult
     flexCenter()
     flex-wrap wrap

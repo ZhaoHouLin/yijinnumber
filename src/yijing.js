@@ -109,3 +109,9 @@ export function analyzeId(input, options) {
     return { ...r, from: ageFrom(i === 0 ? 0 : start), to: ageTo(nextStart - 1) }
   })
 }
+
+// 流年走完一輪後從第一組重頭再排，年齡接續上一輪的最後一歲
+export function nextRound(results) {
+  const offset = results.at(-1)?.to ?? 0
+  return results.map(r => ({ ...r, from: r.from + offset, to: r.to + offset }))
+}
