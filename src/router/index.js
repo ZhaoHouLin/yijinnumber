@@ -1,28 +1,12 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
+import { createRouter, createWebHashHistory } from 'vue-router'
 
-Vue.use(VueRouter)
-
-  const routes = [
-  {
-    path: '/',
-    name: 'Home',
-    // component: Home
-  },
-  {
-    path: '/PhoneNumber',
-    name: 'PhoneNumber',
-    component: () => import('../components/PhoneNumber.vue'),
-  },
-  {
-    path: '/IDNumber',
-    name: 'IDNumber',
-    component: () => import('../components/IDNumber.vue')
-  }
+const routes = [
+  { path: '/', redirect: '/PhoneNumber' },
+  { path: '/PhoneNumber', name: 'PhoneNumber', component: () => import('../components/PhoneNumber.vue') },
+  { path: '/IDNumber', name: 'IDNumber', component: () => import('../components/IDNumber.vue') }
 ]
 
-const router = new VueRouter({
+export default createRouter({
+  history: createWebHashHistory(),
   routes
 })
-
-export default router
