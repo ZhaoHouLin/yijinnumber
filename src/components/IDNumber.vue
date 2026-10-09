@@ -14,7 +14,8 @@ const results = computed(() => analyzeId(id.value))
   .idResult
     .idResultText(v-for='(r, i) in results' :key='i')
       h3 {{ r.pair }}
-      a(:href='r.url' target='_blank' rel='noopener') {{ r.name }}
+      a(:href='r.url' target='_blank' rel='noopener' :class='{ unlucky: !r.lucky }') {{ r.name }}
+      h5.level(v-if='r.level') {{ r.level }}級
       h3 {{ r.from }}
       h3 |
       h3 {{ r.to }}
@@ -42,6 +43,12 @@ const results = computed(() => analyzeId(id.value))
         -webkit-writing-mode vertical-lr
         writing-mode vertical-lr
         text-decoration none
-        color #222
         font-weight bold
+        color #8b1a1a
+        &.unlucky
+          color #333
+      .level
+        font-weight normal
+        font-size 0.75rem
+        text-align center
 </style>

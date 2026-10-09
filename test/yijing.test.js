@@ -44,6 +44,20 @@ describe('analyzePhone', () => {
     expect(() => legacy.phone('51')).toThrow()
     expect(analyzePhone('51').map(r => r.pair)).toEqual(['11'])
   })
+  it('來源範例：0 一律變伏位、5 頭尾伏位中間跳過、19 夾 5 重複', () => {
+    const pairs = n => analyzePhone(n).map(r => r.pair)
+    expect(pairs('74031')).toEqual(['74', '44', '33', '31'])
+    expect(pairs('5249')).toEqual(['22', '24', '49'])
+    expect(pairs('12567')).toEqual(['12', '26', '67'])
+    expect(pairs('49513')).toEqual(['49', '91', '19', '91', '13'])
+    expect(pairs('81597')).toEqual(['81', '19', '91', '19', '97'])
+  })
+  it('標出吉凶與能量等級', () => {
+    const [tianyi, liusha, fuwei] = analyzePhone('1388')
+    expect(tianyi).toMatchObject({ pair: '13', name: '天醫', lucky: true, level: 1 })
+    expect(liusha).toMatchObject({ pair: '38', name: '六煞', lucky: false, level: 3 })
+    expect(fuwei).toMatchObject({ pair: '88', name: '伏位', lucky: true, level: null })
+  })
   it('搜尋連結指向該星的 Google 搜尋', () => {
     expect(analyzePhone('19')[0].url).toBe('https://www.google.com/search?q=' + encodeURIComponent('易經 延年'))
   })
@@ -53,13 +67,13 @@ describe('analyzeId', () => {
   const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
   const id = () => letters[Math.floor(Math.random() * 26)] + digits(9)
 
-  it('與原版結果一致（含年齡區間）', () => {
-    compareWithLegacy(id, legacy.id, analyzeId, r => (Array.isArray(r) ? [r[0], r[1], r[3], r[4]] : [r.pair, r.name, r.from, r.to]))
+  it('與原版結果一致（年齡區間除第一組起點外不變）', () => {
+    compareWithLegacy(id, legacy.id, analyzeId, r => (Array.isArray(r) ? [r[0], r[1], r[4]] : [r.pair, r.name, r.to]))
   })
   it('小寫字母等同大寫', () => {
     expect(analyzeId('a123456789')).toEqual(analyzeId('A123456789'))
   })
-  it('第一組管 1–13 歲，之後每組 5 年', () => {
-    expect(analyzeId('A123456789').slice(0, 3).map(r => [r.from, r.to])).toEqual([[1, 13], [13, 18], [18, 23]])
+  it('第一組管 0–13 歲，之後每組 5 年', () => {
+    expect(analyzeId('A123456789').slice(0, 3).map(r => [r.from, r.to])).toEqual([[0, 13], [13, 18], [18, 23]])
   })
 })
