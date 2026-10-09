@@ -79,13 +79,30 @@ describe('analyzeId', () => {
   const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
   const id = () => letters[Math.floor(Math.random() * 26)] + digits(9)
 
-  it('與原版結果一致（年齡區間除第一組起點外不變）', () => {
-    compareWithLegacy(id, legacy.id, analyzeId, r => (Array.isArray(r) ? [r[0], r[1], r[4]] : [r.pair, r.name, r.to]))
+  it('星的結果與原版一致', () => {
+    compareWithLegacy(id, legacy.id, analyzeId, r => (Array.isArray(r) ? r.slice(0, 2) : [r.pair, r.name]))
   })
   it('小寫字母等同大寫', () => {
     expect(analyzeId('a123456789')).toEqual(analyzeId('A123456789'))
   })
   it('第一組管 0–13 歲，之後每組 5 年', () => {
     expect(analyzeId('A123456789').slice(0, 3).map(r => [r.from, r.to])).toEqual([[0, 13], [13, 18], [18, 23]])
+  })
+  it('年齡依原始位置計算：被 5 併掉的組併入前一組，後面的年齡不往前擠', () => {
+    // 01 11 12 23 34 45 56 67 78 89：45+56 → 46，管兩組的年齡
+    const ages = Object.fromEntries(analyzeId('A123456789').map(r => [r.pair, [r.from, r.to]]))
+    expect(ages['46']).toEqual([33, 43])
+    expect(ages['67']).toEqual([43, 48])
+    expect(ages['89']).toEqual([53, 58])
+  })
+  it('年齡區間從 0 歲連續到最後一組，不留空檔', () => {
+    for (const input of ['A155005559', 'Z950513000', 'B100055501', 'A123456789']) {
+      for (const zeroRule of ['standard', 'keepDouble', 'skipMiddle']) {
+        const rs = analyzeId(input, { zeroRule })
+        expect(rs[0].from, input).toBe(0)
+        expect(rs.at(-1).to, input).toBe(58)
+        rs.forEach((r, i) => i > 0 && expect([rs[i - 1].to, rs[i - 1].from], input).toContain(r.from))
+      }
+    }
   })
 })

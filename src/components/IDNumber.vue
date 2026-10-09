@@ -13,7 +13,7 @@ const results = computed(() => analyzeId(id.value, { zeroRule: zeroRule.value })
 <template lang='pug'>
 .idInfo
   h2 請輸入您的身分證字號
-  h4 算人生際遇
+  h4 算人生際遇（年齡以虛歲計）
   input#idNum(v-model='id' type='text' maxlength=10 aria-label='身分證字號' autocomplete='off' autocapitalize='characters')
   ZeroRule
   .idResult

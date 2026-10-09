@@ -20,9 +20,10 @@ const STAR_BY_PAIR = new Map(
 
 const searchUrl = name => `https://www.google.com/search?q=${encodeURIComponent(`易經 ${name}`)}`
 
+// start：該組在原始號碼中是第幾組，流年年齡依此計算
 function toPairs(digits) {
   const pairs = []
-  for (let i = 0; i < digits.length - 1; i++) pairs.push(digits[i] + digits[i + 1])
+  for (let i = 0; i < digits.length - 1; i++) pairs.push({ pair: digits[i] + digits[i + 1], start: i })
   return pairs
 }
 
@@ -31,22 +32,23 @@ function resolveFives(input) {
   const pairs = [...input]
   const out = []
   for (let i = 0; i < pairs.length; i++) {
-    const cur = pairs[i]
-    const prev = pairs[i - 1]
-    const next = pairs[i + 1]
+    const cur = pairs[i].pair
+    const prev = pairs[i - 1]?.pair
+    const next = pairs[i + 1]?.pair
     const isLast = i === pairs.length - 1
+    const emit = (...ps) => ps.forEach(pair => out.push({ ...pairs[i], pair }))
     // 5 在 1 與 9 之間要重複 19 一次
-    if (cur === '95' && next === '51') out.push('91', '19')
-    else if (cur === '51' && prev === '95') out.push('91')
-    else if (cur === '15' && next === '59') out.push('19', '91')
-    else if (cur === '59' && prev === '15') out.push('19')
+    if (cur === '95' && next === '51') emit('91', '19')
+    else if (cur === '51' && prev === '95') emit('91')
+    else if (cur === '15' && next === '59') emit('19', '91')
+    else if (cur === '59' && prev === '15') emit('19')
     else if (cur[1] === '5' && !isLast) {
-      out.push(cur[0] + next[1])
+      emit(cur[0] + next[1])
       pairs.splice(i + 1, 1)
     }
-    else if (cur[0] === '5' && i === 0) out.push(cur[1] + cur[1])
-    else if (cur[1] === '5' && isLast) out.push(cur[0] + cur[0])
-    else out.push(cur)
+    else if (cur[0] === '5' && i === 0) emit(cur[1] + cur[1])
+    else if (cur[1] === '5' && isLast) emit(cur[0] + cur[0])
+    else emit(cur)
   }
   return out
 }
@@ -60,26 +62,26 @@ export const ZERO_RULES = ['standard', 'keepDouble', 'skipMiddle']
 function resolveZeros(pairs, zeroRule) {
   const out = []
   for (let i = 0; i < pairs.length; i++) {
-    const cur = pairs[i]
-    const next = pairs[i + 1]
+    const { pair: cur, start } = pairs[i]
+    const next = pairs[i + 1]?.pair
     if (zeroRule === 'skipMiddle' && cur[0] !== '0' && cur[1] === '0' && next && next[0] === '0' && next[1] !== '0') {
-      out.push({ pair: cur[0] + next[1], hidden: true })
+      out.push({ pair: cur[0] + next[1], start, hidden: true })
       i++
     }
-    else if (cur[1] === '0') out.push({ pair: cur[0] + cur[0] })
-    else if (cur[0] === '0') out.push({ pair: cur[1] + cur[1] })
-    else out.push({ pair: cur })
+    else if (cur[1] === '0') out.push({ pair: cur[0] + cur[0], start })
+    else if (cur[0] === '0') out.push({ pair: cur[1] + cur[1], start })
+    else out.push({ pair: cur, start })
   }
   return out
 }
 
 function analyzeDigits(digits, { zeroRule = 'standard' } = {}) {
-  const pairs = toPairs(digits).filter(p => p !== '55' && (p !== '00' || zeroRule === 'keepDouble'))
+  const pairs = toPairs(digits).filter(({ pair }) => pair !== '55' && (pair !== '00' || zeroRule === 'keepDouble'))
   return resolveZeros(resolveFives(pairs), zeroRule)
     .filter(({ pair }) => STAR_BY_PAIR.has(pair))
-    .map(({ pair, hidden = false }) => {
+    .map(({ pair, start, hidden = false }) => {
       const star = STAR_BY_PAIR.get(pair)
-      return { pair, hidden, ...star, url: searchUrl(star.name) }
+      return { pair, start, hidden, ...star, url: searchUrl(star.name) }
     })
 }
 
@@ -90,16 +92,20 @@ export function analyzePhone(input, options) {
 // 身分證字母轉兩位數：A=01 … Z=26（數字易經流派用法，非內政部的 A=10）
 const letterToDigits = ch => String(ch.charCodeAt(0) - 64).padStart(2, '0')
 
-// 第一組管 0–13 歲，之後每組管 5 年
-const ageRange = i => (i === 0 ? [0, 13] : [i * 5 + 8, i * 5 + 13])
+// 原始第 i 組的流年（虛歲）：第一組管 0–13 歲，之後每組管 5 年
+const ageFrom = i => (i === 0 ? 0 : i * 5 + 8)
+const ageTo = i => i * 5 + 13
 
 export function analyzeId(input, options) {
   const digits = String(input)
     .toUpperCase()
     .replace(/[^A-Z0-9]/g, '')
     .replace(/[A-Z]/g, letterToDigits)
-  return analyzeDigits(digits, options).map((r, i) => {
-    const [from, to] = ageRange(i)
-    return { ...r, from, to }
+  const pairCount = digits.length - 1
+  const results = analyzeDigits(digits, options)
+  // 每組管到下一個不同起點的前一組為止：被 5 合併或刪掉的組併入前一組，年齡不留空檔
+  return results.map(({ start, ...r }, i) => {
+    const nextStart = results.slice(i + 1).find(n => n.start > start)?.start ?? pairCount
+    return { ...r, from: ageFrom(i === 0 ? 0 : start), to: ageTo(nextStart - 1) }
   })
 }
