@@ -219,6 +219,10 @@ components:
 ### 展開列 Disclosure
 - **Style：** 流年第二輪用 `<details>`；summary 為 900 字、最小高 44px，前置 CSS 繪製的朱紅三角，展開時旋轉 90°。
 
+### 網站圖示 Favicon
+- **Style：** 與宜忌朱印同一語彙：滿版朱紅方塊、直角，中央 Noto Serif TC 900 曆紙色「易」字（約佔 82% 高）。
+- **檔案：** `public/favicon.ico`（16/32/48，16 與 32 直接以字型在該尺寸渲染，48 由 512 縮小）、`public/apple-touch-icon.png`（180）。`theme-color` 為朱紅 #b01e23。
+
 ## Do's and Don'ts
 
 ### Do:
