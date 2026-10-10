@@ -4,7 +4,7 @@
 set -e
 
 # 构建
-npm ci
+npm install
 npm run build
 
 # cd 到构建输出的目录下 
