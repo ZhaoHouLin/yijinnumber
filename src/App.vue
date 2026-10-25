@@ -3,7 +3,7 @@ import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 
 const route = useRoute()
-const PAGE_NAMES = { IDNumber: '身分證', MingGua: '風水方位' }
+const PAGE_NAMES = { IDNumber: '身分證', MingGua: '風水方位', HeLuo: '天命' }
 const pageName = computed(() => PAGE_NAMES[route.name] ?? '手機號碼')
 </script>
 
@@ -22,6 +22,7 @@ nav.tabs(aria-label='功能')
   router-link(to='/PhoneNumber') 算手機能量
   router-link(to='/IDNumber') 算流年
   router-link(to='/MingGua') 算命卦
+  router-link(to='/HeLuo') 算天命
 </template>
 
 <style lang="stylus">
@@ -126,6 +127,14 @@ main
     outline none
     border-bottom-color red
 
+// 輸入框下方的回饋：解讀結果或錯誤
+.inputEcho
+  text-align center
+  margin -4px 0 10px
+  color ink_soft
+  &.error
+    color red
+
 .tabs
   position sticky
   bottom 0
@@ -163,6 +172,12 @@ main
 @media (prefers-reduced-motion reduce)
   .page-enter-active, .page-leave-active
     transition none
+
+// 四個分頁擠在手機寬度，字縮一點、字距收緊
+@media (max-width 439px)
+  .tabs a
+    font-size 0.92rem
+    letter-spacing 0.02em
 
 @media (min-width 800px)
   #app

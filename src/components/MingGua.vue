@@ -3,20 +3,13 @@ import { ref, computed } from 'vue'
 import RingChoice from './RingChoice.vue'
 import StarCard from './StarCard.vue'
 import AlmanacColumns from './AlmanacColumns.vue'
-import { mingGua, parseBirth } from '../bazhai.js'
+import { mingGua } from '../bazhai.js'
+import { useBirthInput } from '../birthInput.js'
 
-const birth = ref('')
+const { birth, date, dateText, badDate } = useBirthInput()
 const gender = ref('')
 const card = ref(null)
 const genders = [{ value: 'male', label: '男' }, { value: 'female', label: '女' }]
-const date = computed(() => parseBirth(birth.value))
-const dateText = computed(() => {
-  if (!date.value) return ''
-  const [y, m, d] = date.value.split('-').map(Number)
-  return `${y} 年 ${m} 月 ${d} 日`
-})
-// 打滿 8 碼還不是日期才提示，打到一半不吵
-const badDate = computed(() => !date.value && birth.value.replace(/\D/g, '').length >= 8)
 const gua = computed(() => date.value && mingGua(date.value, gender.value))
 const genderText = computed(() => (gender.value === 'male' ? '男' : '女'))
 // 拿生氣方當例子，說明每欄的星怎麼來
@@ -26,8 +19,8 @@ const example = computed(() => gua.value?.directions.find(d => d.name === '生�
 <template lang='pug'>
 section.page
   input.numberInput(v-model='birth' type='text' inputmode='numeric' maxlength=10 placeholder='出生日期 例 19540601' aria-label='國曆出生日期，例如 19540601' autocomplete='bday')
-  p.date(v-if='dateText') 國曆 {{ dateText }}
-  p.date.error(v-else-if='badDate' role='alert') 沒有這一天，請確認年月日（例：19540601）
+  p.inputEcho(v-if='dateText') 國曆 {{ dateText }}
+  p.inputEcho.error(v-else-if='badDate' role='alert') 沒有這一天，請確認年月日（例：19540601）
   AlmanacColumns(:results='gua ? gua.directions : []' :tally='false' empty='填出生日期與性別，排出八個方位的吉凶' @open='card.open($event)')
     RingChoice(v-model='gender' legend='性別' name='gender' :options='genders')
     template(v-if='gua')
@@ -65,13 +58,6 @@ section.page
     margin-right 0.4em
     font-size 1.35rem
     font-weight 900
-
-.date
-  text-align center
-  margin -4px 0 10px
-  color ink_soft
-  &.error
-    color red
 
 .explain
   margin-top 8px
