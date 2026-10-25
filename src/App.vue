@@ -15,7 +15,9 @@ const pageName = computed(() => PAGE_NAMES[route.name] ?? '手機號碼')
   main
     router-view(v-slot='{ Component }')
       transition(name='page' mode='out-in')
-        component(:is='Component')
+        //- 切換分頁保留已輸入的內容
+        keep-alive
+          component(:is='Component')
 nav.tabs(aria-label='功能')
   router-link(to='/PhoneNumber') 算手機能量
   router-link(to='/IDNumber') 算流年

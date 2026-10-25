@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { lichunDay, guaYear, guaNumber, mingGua } from '../src/bazhai.js'
+import { lichunDay, guaYear, guaNumber, mingGua, parseBirth } from '../src/bazhai.js'
 
 // 出處口訣（1900–1999 年）：男 (100−年尾)÷9、女 (年尾−4)÷9 取餘，餘 0 作 9
 const folk = (year, gender) => {
@@ -56,5 +56,14 @@ describe('八宅命卦', () => {
   it('日期或性別不完整時不算', () => {
     expect(mingGua('', 'male')).toBeNull()
     expect(mingGua('1990-01-01', '')).toBeNull()
+  })
+})
+
+describe('出生日期輸入', () => {
+  it('直接打 8 碼數字或用任何分隔符都能讀', () => {
+    for (const s of ['19540601', '1954-06-01', '1954/6/1', '1954.6.1', '1954年6月1日']) expect(parseBirth(s), s).toBe('1954-06-01')
+  })
+  it('還沒打完或不存在的日期不算，避免算出錯的命卦', () => {
+    for (const s of ['', '1954', '195406', '19540231', '19541301', '1954/2/30', '18991231']) expect(parseBirth(s), s).toBeNull()
   })
 })

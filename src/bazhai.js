@@ -38,6 +38,17 @@ export function guaNumber(year, gender) {
   return gender === 'male' ? 2 : 8 // 5 無卦：男寄坤、女寄艮
 }
 
+// 把輸入的出生日期（19540601、1954/6/1、1954-06-01…）轉成 'YYYY-MM-DD'；不是真實日期就回 null
+export function parseBirth(input) {
+  const s = String(input ?? '').trim()
+  const m = /^(\d{4})(\d{2})(\d{2})$/.exec(s) ?? /^(\d{4})\D+(\d{1,2})\D+(\d{1,2})\D*$/.exec(s)
+  if (!m) return null
+  const [y, mo, d] = m.slice(1).map(Number)
+  const date = new Date(Date.UTC(y, mo - 1, d))
+  if (y < 1901 || date.getUTCMonth() !== mo - 1 || date.getUTCDate() !== d) return null
+  return `${y}-${String(mo).padStart(2, '0')}-${String(d).padStart(2, '0')}`
+}
+
 // date 為 'YYYY-MM-DD'；回傳命卦與八方位的星（形狀同 analyzePhone 的結果，可直接畫欄）
 export function mingGua(date, gender) {
   const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(date ?? '')

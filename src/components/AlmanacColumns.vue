@@ -14,7 +14,8 @@ defineEmits(['open'])
 const DIGITS = '〇一二三四五六七八九'
 const zh = n => (n < 10 ? DIGITS[n] : `${n >= 20 ? DIGITS[Math.floor(n / 10)] : ''}十${n % 10 ? DIGITS[n % 10] : ''}`)
 
-const unique = list => [...new Set(list.map(r => r.name))].join('、')
+// 命卦頁的欄有方位，宜忌直接寫「東南（生氣）」
+const unique = list => [...new Set(list.map(r => (r.label ? `${r.label}（${r.name}）` : r.name)))].join('、')
 const good = computed(() => props.results.filter(r => r.lucky))
 const bad = computed(() => props.results.filter(r => !r.lucky))
 </script>
