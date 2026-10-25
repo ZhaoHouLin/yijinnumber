@@ -3,7 +3,7 @@ import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 
 const route = useRoute()
-const PAGE_NAMES = { IDNumber: '身分證', MingGua: '命卦' }
+const PAGE_NAMES = { IDNumber: '身分證', MingGua: '風水方位' }
 const pageName = computed(() => PAGE_NAMES[route.name] ?? '手機號碼')
 </script>
 

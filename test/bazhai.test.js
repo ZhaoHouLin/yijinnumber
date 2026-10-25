@@ -26,7 +26,7 @@ describe('八宅命卦', () => {
   it('5 無卦：男寄坤、女寄艮', () => {
     // 1986 年男命、1972 年女命算出來是 5
     expect(folk(1986, 'male')).toBe(5)
-    expect(mingGua('1986-06-01', 'male').name).toBe('坤')
+    expect(mingGua('1986-06-01', 'male')).toMatchObject({ cycle: 5, number: 2, name: '坤' })
     expect(folk(1972, 'female')).toBe(5)
     expect(mingGua('1972-06-01', 'female').name).toBe('艮')
   })

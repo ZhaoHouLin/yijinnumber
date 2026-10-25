@@ -31,9 +31,14 @@ export function guaYear(year, month, day) {
 
 // 男命即該年的年紫白星（2024 年為三碧，每年退一）；女命與男命相加恆為 6（模 9）
 // 1900–1999 年與常見口訣「男 (100−年尾)÷9、女 (年尾−4)÷9 取餘」相同
-export function guaNumber(year, gender) {
+// 頁面要顯示計算過程，所以分成「九年一輪數到幾」與「5 改寄坤艮」兩步
+export function cycleNumber(year, gender) {
   const male = (((3 + 2024 - year - 1) % 9) + 9) % 9 + 1
-  const n = gender === 'male' ? male : (((5 - male) % 9) + 9) % 9 + 1
+  return gender === 'male' ? male : (((5 - male) % 9) + 9) % 9 + 1
+}
+
+export function guaNumber(year, gender) {
+  const n = cycleNumber(year, gender)
   if (n !== 5) return n
   return gender === 'male' ? 2 : 8 // 5 無卦：男寄坤、女寄艮
 }
@@ -58,6 +63,7 @@ export function mingGua(date, gender) {
   const n = guaNumber(effectiveYear, gender)
   return {
     number: n,
+    cycle: cycleNumber(effectiveYear, gender),
     ...GUA[n],
     group: EAST.includes(n) ? '東四命' : '西四命',
     effectiveYear,
