@@ -19,7 +19,7 @@ web
 邊打邊算，不用按送出。0 的處理各派說法不同，讓使用者自己選流派（`zeroRule`：standard／keepDouble／skipMiddle），不偷偷替他決定。流年依每組在號碼中的原始位置計算，走完一輪後從頭再排一次（預設收合）。
 
 ## Operating Context
-三個頁面：算手機能量（`/PhoneNumber`）、算流年（`/IDNumber`）、算方位（`/MingGua`，八宅命卦與風水方位）。部署在 GitHub Pages 的 `/yijinnumber/` 底下。介面為繁體中文（zh-Hant）。
+三個頁面：算手機能量（`/PhoneNumber`）、算流年（`/IDNumber`）、算方位（`/Direction`，舊網址 `/MingGua` 會轉址；八宅命卦與風水方位）。部署在 GitHub Pages 的 `/yijinnumber/` 底下。介面為繁體中文（zh-Hant）。
 
 ## Capabilities and Constraints
 - Vue 3 + Vite，模板用 pug、樣式用 stylus。計算邏輯在 `src/yijing.js` 並有測試；設計調整不能改變計算結果。

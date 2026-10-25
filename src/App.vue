@@ -3,7 +3,7 @@ import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 
 const route = useRoute()
-const PAGE_NAMES = { IDNumber: '身分證', MingGua: '風水方位' }
+const PAGE_NAMES = { IDNumber: '身分證', Direction: '風水方位' }
 const pageName = computed(() => PAGE_NAMES[route.name] ?? '手機號碼')
 </script>
 
@@ -21,7 +21,7 @@ const pageName = computed(() => PAGE_NAMES[route.name] ?? '手機號碼')
 nav.tabs(aria-label='功能')
   router-link(to='/PhoneNumber') 算手機能量
   router-link(to='/IDNumber') 算流年
-  router-link(to='/MingGua') 算方位
+  router-link(to='/Direction') 算方位
 </template>
 
 <style lang="stylus">
