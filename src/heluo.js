@@ -2,6 +2,8 @@
 // 規則依網路資料整理，各家分歧與我們的取捨記在 docs/research/heluo.md
 import L from 'lunar-javascript'
 import ZHOUYI from './zhouyi.json'
+// 白話依常見解釋整理，不是原典
+import PLAIN from './zhouyiPlain.json'
 
 // 天干：納甲洛書數；地支：河圖生成數（一支同時給一奇一偶）
 const STEM_NUM = { 甲: 6, 乙: 2, 丙: 8, 丁: 7, 戊: 1, 己: 9, 庚: 3, 辛: 4, 壬: 6, 癸: 2 }
@@ -71,7 +73,8 @@ function hexagram(lines, position) {
   const upper = trigramOf(lines.slice(3))
   const { name, judgment, lines: texts } = ZHOUYI.hexagrams[upper + lower]
   const fullName = upper === lower ? `${name}為${NATURE[upper]}` : `${NATURE[upper]}${NATURE[lower]}${name}`
-  return { name, fullName, upper, lower, lines, judgment, position, lineText: texts[position - 1] }
+  const plain = PLAIN.hexagrams[name]
+  return { name, fullName, upper, lower, lines, judgment, position, lineText: texts[position - 1], summary: plain.summary, linePlain: plain.lines[position - 1] }
 }
 
 // date：'YYYY-MM-DD'（國曆）；hourIndex：0 子時 … 11 亥時；gender：'male' | 'female'

@@ -41,6 +41,13 @@ section.page
         small {{ PILLAR_NAMES[i] }}
         b {{ p }}
 
+    dl.howto
+      dt 先天卦
+      dd 由八字直接算出，代表與生俱來的本命。
+      dt 後天卦
+      dd 由元堂爻變化而來，代表後來的變化與發展。
+      dt 元堂
+      dd 你在卦中的位置，這一爻的意思最貼近你。
     .gua2
       section.gua(v-for='g in [{ title: "先天卦", h: result.xiantian }, { title: "後天卦", h: result.houtian }]' :key='g.title')
         h3 {{ g.title }}
@@ -49,12 +56,16 @@ section.page
           li(v-for='l in drawn(g.h.lines)' :key='l.position' :class='{ yin: !l.yang, yuan: l.position === g.h.position }')
             span.bar
             span.mark(v-if='l.position === g.h.position') 元堂
-        p.judgment
-          b 卦辭
-          | {{ g.h.judgment }}
-        p.lineText
+        p.summary {{ g.h.summary }}
+        p.yuanPlain
           b 元堂
-          | {{ g.h.lineText }}
+          | {{ g.h.linePlain }}
+        details.original
+          summary 《周易》原文
+          p 卦辭：{{ g.h.judgment }}
+          p {{ g.h.lineText }}
+
+    p.note 白話依常見解釋整理，供參考。
 
     ol.steps
       li 八字換成數：{{ result.numbers.join('、') }}
@@ -62,7 +73,9 @@ section.page
       li {{ result.yinYang }}，{{ result.tianOnTop ? '天數卦在上' : '地數卦在上' }}，得先天{{ result.xiantian.fullName }}
       li {{ BRANCHES[hour] }}時，元堂在{{ LINE_NAMES[result.xiantian.position - 1] }}爻；此爻陰陽互變、上下卦對調，得後天{{ result.houtian.fullName }}
 
-  p.note(v-else) 用出生年月日時排八字，換成天數、地數起卦，再由出生時辰定元堂爻，看一生的先天卦與後天卦（河洛理數）。
+  template(v-else)
+    p.note 用出生年月日時排八字，換成天數、地數起卦，再由出生時辰定元堂爻，看一生的先天卦與後天卦（河洛理數）。
+    p.note 河洛理數是另一套易學，和數字易經不同；數字易經看一生走勢用身分證，請見「算流年」。
 
   details.options
     summary 算法選項（各家說法不同）
@@ -168,8 +181,13 @@ section.page
     color red
     white-space nowrap
 
-.judgment, .lineText
-  font-size 0.9rem
+.summary
+  font-size 0.95rem
+  line-height 1.7
+
+.yuanPlain
+  margin-top 6px
+  font-size 0.95rem
   line-height 1.7
   b
     display inline-flex
@@ -181,8 +199,23 @@ section.page
     color paper
     font-size 0.8rem
     font-weight 900
-.lineText
-  margin-top 6px
+.original
+  margin-top 8px
+  font-size 0.85rem
+  line-height 1.7
+  color ink_soft
+
+.howto
+  display grid
+  grid-template-columns auto 1fr
+  gap 4px 12px
+  margin 0 0 12px
+  font-size 0.9rem
+  line-height 1.6
+  dt
+    font-weight 900
+  dd
+    margin 0
 
 .steps
   margin 12px 0 0
@@ -199,27 +232,30 @@ section.page
 
 .options
   margin-top 16px
-  summary
-    min-height 44px
-    display flex
-    align-items center
-    cursor pointer
-    gap 8px
-    font-size 0.9rem
-    font-weight 900
-    list-style none
-    &::-webkit-details-marker
-      display none
-    &::before
-      content ''
-      border-style solid
-      border-width 6px 0 6px 9px
-      border-color transparent transparent transparent red
-      transition transform 0.2s
-    &:hover
-      color red
-  &[open] summary::before
-    transform rotate(90deg)
+
+// 展開列：朱紅三角，展開時轉 90°
+details > summary
+  min-height 44px
+  display flex
+  align-items center
+  gap 8px
+  cursor pointer
+  list-style none
+  &::-webkit-details-marker
+    display none
+  &::before
+    content ''
+    border-style solid
+    border-width 6px 0 6px 9px
+    border-color transparent transparent transparent red
+    transition transform 0.2s
+  &:hover
+    color red
+details[open] > summary::before
+  transform rotate(90deg)
+.options > summary
+  font-size 0.9rem
+  font-weight 900
 
 @media (max-width 599px)
   .gua2

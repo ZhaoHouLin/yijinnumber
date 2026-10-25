@@ -50,6 +50,7 @@ describe('河洛理數', () => {
           const r = heluo(date, h, g)
           expect(r.xiantian.lineText, `${date} ${h} ${g}`).toBeTruthy()
           expect(r.houtian.lineText).toBeTruthy()
+          expect(r.xiantian.linePlain && r.houtian.summary).toBeTruthy()
         }
       }
     }
