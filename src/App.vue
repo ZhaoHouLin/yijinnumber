@@ -3,7 +3,7 @@ import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 
 const route = useRoute()
-const PAGE_NAMES = { IDNumber: '身分證', MingGua: '風水方位', HeLuo: '天命' }
+const PAGE_NAMES = { IDNumber: '身分證', MingGua: '風水方位' }
 const pageName = computed(() => PAGE_NAMES[route.name] ?? '手機號碼')
 </script>
 
@@ -21,7 +21,6 @@ const pageName = computed(() => PAGE_NAMES[route.name] ?? '手機號碼')
 nav.tabs(aria-label='功能')
   router-link(to='/PhoneNumber') 算手機能量
   router-link(to='/IDNumber') 算流年
-  router-link(to='/HeLuo') 算天命
   router-link(to='/MingGua') 算方位
 </template>
 
@@ -172,12 +171,6 @@ main
 @media (prefers-reduced-motion reduce)
   .page-enter-active, .page-leave-active
     transition none
-
-// 四個分頁擠在手機寬度，字縮一點、字距收緊
-@media (max-width 439px)
-  .tabs a
-    font-size 0.92rem
-    letter-spacing 0.02em
 
 @media (min-width 800px)
   #app

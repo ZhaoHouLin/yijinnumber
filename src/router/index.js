@@ -5,7 +5,8 @@ const routes = [
   { path: '/PhoneNumber', name: 'PhoneNumber', component: () => import('../components/PhoneNumber.vue') },
   { path: '/IDNumber', name: 'IDNumber', component: () => import('../components/IDNumber.vue') },
   { path: '/MingGua', name: 'MingGua', component: () => import('../components/MingGua.vue') },
-  { path: '/HeLuo', name: 'HeLuo', component: () => import('../components/HeLuo.vue') }
+  // 不存在的網址（例如已移除的 /HeLuo）回首頁
+  { path: '/:pathMatch(.*)*', redirect: '/' }
 ]
 
 export default createRouter({
