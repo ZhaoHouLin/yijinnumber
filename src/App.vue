@@ -21,8 +21,8 @@ const pageName = computed(() => PAGE_NAMES[route.name] ?? '手機號碼')
 nav.tabs(aria-label='功能')
   router-link(to='/PhoneNumber') 算手機能量
   router-link(to='/IDNumber') 算流年
-  router-link(to='/MingGua') 算命卦
   router-link(to='/HeLuo') 算天命
+  router-link(to='/MingGua') 算命卦
 </template>
 
 <style lang="stylus">
