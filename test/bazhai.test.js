@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { lichunDay, guaYear, guaNumber, mingGua, parseBirth } from '../src/bazhai.js'
+import { lichunDay, guaYear, guaNumber, cycleNumber, cycleFormula, mingGua, parseBirth } from '../src/bazhai.js'
 
 // 出處口訣（1900–1999 年）：男 (100−年尾)÷9、女 (年尾−4)÷9 取餘，餘 0 作 9
 const folk = (year, gender) => {
@@ -52,6 +52,12 @@ describe('八宅命卦', () => {
     expect(dirs['生氣']).toEqual(['東南', '14'])
     expect(dirs['天醫']).toEqual(['東', '13'])
     expect(dirs['延年']).toEqual(['南', '19'])
+  })
+  it('頁面上的口訣算式和實際算法結果一致（1901–2099 年）', () => {
+    for (let y = 1901; y <= 2099; y++) {
+      for (const g of ['male', 'female']) expect(cycleFormula(y, g).result, `${y} ${g}`).toBe(cycleNumber(y, g))
+    }
+    expect(cycleFormula(1954, 'male').text).toBe('(100 − 54) ÷ 9 = 5 餘 1')
   })
   it('日期或性別不完整時不算', () => {
     expect(mingGua('', 'male')).toBeNull()

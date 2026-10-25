@@ -37,6 +37,18 @@ export function cycleNumber(year, gender) {
   return gender === 'male' ? male : (((5 - male) % 9) + 9) % 9 + 1
 }
 
+// 給頁面看的口訣算式，用出生年的末兩位數：
+// 1900 年代 男 (100 − 年尾)÷9、女 (年尾 − 4)÷9；2000 年代 男 (99 − 年尾)÷9、女 (年尾 + 6)÷9；餘 0 作 9
+export function cycleFormula(year, gender) {
+  const yy = year % 100
+  const male = gender === 'male'
+  const [expr, value] = year < 2000
+    ? (male ? [`100 − ${yy}`, 100 - yy] : yy >= 4 ? [`${yy} − 4`, yy - 4] : [`${yy} + 5`, yy + 5])
+    : (male ? [`99 − ${yy}`, 99 - yy] : [`${yy} + 6`, yy + 6])
+  const remainder = value % 9
+  return { text: `(${expr}) ÷ 9 = ${Math.floor(value / 9)} 餘 ${remainder}`, result: remainder || 9 }
+}
+
 export function guaNumber(year, gender) {
   const n = cycleNumber(year, gender)
   if (n !== 5) return n
@@ -64,6 +76,8 @@ export function mingGua(date, gender) {
   return {
     number: n,
     cycle: cycleNumber(effectiveYear, gender),
+    formula: cycleFormula(effectiveYear, gender).text,
+    lichun: `${year} 年 2 月 ${lichunDay(year)} 日`,
     ...GUA[n],
     group: EAST.includes(n) ? '東四命' : '西四命',
     effectiveYear,

@@ -28,8 +28,9 @@ section.page
         b {{ gua.name }}
         | 命・{{ gua.group }}
       ol.steps
+        li 命卦只看出生年和性別；月日只用來看是否在立春（{{ gua.lichun }}）前出生，立春前算前一年
         li
-          | {{ gua.effectiveYear }} 年{{ genderText }}命，九年一輪數到 
+          | {{ gua.effectiveYear }} 年{{ genderText }}命：{{ gua.formula }} → 
           b {{ gua.cycle }}
           template(v-if='gua.cycle === 5') （5 在中宮沒有卦，{{ genderText }}命改用 {{ gua.number }}）
           | ，{{ gua.number }} 是{{ gua.name }}卦
