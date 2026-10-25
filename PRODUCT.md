@@ -19,12 +19,13 @@ web
 邊打邊算，不用按送出。0 的處理各派說法不同，讓使用者自己選流派（`zeroRule`：standard／keepDouble／skipMiddle），不偷偷替他決定。流年依每組在號碼中的原始位置計算，走完一輪後從頭再排一次（預設收合）。
 
 ## Operating Context
-兩個頁面：算手機能量（`/PhoneNumber`）、算流年（`/IDNumber`）。部署在 GitHub Pages 的 `/yijinnumber/` 底下。介面為繁體中文（zh-Hant）。
+三個頁面：算手機能量（`/PhoneNumber`）、算流年（`/IDNumber`）、算命卦（`/MingGua`）。部署在 GitHub Pages 的 `/yijinnumber/` 底下。介面為繁體中文（zh-Hant）。
 
 ## Capabilities and Constraints
 - Vue 3 + Vite，模板用 pug、樣式用 stylus。計算邏輯在 `src/yijing.js` 並有測試；設計調整不能改變計算結果。
 - 八星說明 `src/starInfo.js` 是作者整理的常見說法，不是權威出處。
 - 使用者決定不加準確度免責聲明。
+- 算命卦：八宅命卦，只用國曆出生日期（以立春為年界）與性別；顯示命卦、東西四命、八方位的星與對應數字組合。數字易經八星表即八宅大遊年換成洛書數，兩者共用同一張表。使用者決定**不**把命卦拿來解讀手機號碼（找不到出處）。
 - 輸入：手機最多 10 碼；身分證為 1 個英文字母＋9 碼數字（字母 A=01 … Z=26）。
 
 ## Brand Commitments

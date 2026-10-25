@@ -5,6 +5,8 @@ import { computed } from 'vue'
 const props = defineProps({
   results: { type: Array, required: true },
   showAges: { type: Boolean, default: false },
+  // 命卦頁八方位恆為四吉四凶，小計沒有資訊
+  tally: { type: Boolean, default: true },
   empty: { type: String, required: true }
 })
 defineEmits(['open'])
@@ -24,7 +26,7 @@ const bad = computed(() => props.results.filter(r => !r.lucky))
     p.empty
       span {{ empty }}
   template(v-else)
-    p.tally
+    p.tally(v-if='tally')
       span 吉
         b {{ zh(good.length) }}
       span 凶
@@ -33,7 +35,9 @@ const bad = computed(() => props.results.filter(r => !r.lucky))
     TransitionGroup.cols(tag='ol' name='ink' :class='{ aged: showAges }')
       li(v-for='(r, i) in results' :key='i' :style='showAges ? { flexGrow: r.to - r.from } : null')
         button.col(type='button' :class='{ unlucky: !r.lucky }' @click='$emit("open", r)' :aria-label='`${r.pair} ${r.name}，${r.lucky ? "吉" : "凶"}，看說明`')
-          span.pair {{ r.pair }}
+          span.pair
+            b.dir(v-if='r.label') {{ r.label }}
+            | {{ r.pair }}
           span.name {{ r.name }}
           span.hidden(v-if='r.hidden') 隱
           span.level {{ r.level ? `${r.level}級` : '' }}
@@ -129,6 +133,9 @@ const bad = computed(() => props.results.filter(r => !r.lucky))
     border-bottom 1px solid ink
     font-size 1.05rem
     font-weight 900
+    .dir
+      display block
+      color red
   .name
     writing-mode vertical-rl
     flex-grow 1

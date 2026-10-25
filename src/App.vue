@@ -3,7 +3,8 @@ import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 
 const route = useRoute()
-const pageName = computed(() => (route.name === 'IDNumber' ? '身分證' : '手機號碼'))
+const PAGE_NAMES = { IDNumber: '身分證', MingGua: '命卦' }
+const pageName = computed(() => PAGE_NAMES[route.name] ?? '手機號碼')
 </script>
 
 <template lang='pug'>
@@ -18,6 +19,7 @@ const pageName = computed(() => (route.name === 'IDNumber' ? '身分證' : '手�
 nav.tabs(aria-label='功能')
   router-link(to='/PhoneNumber') 算手機能量
   router-link(to='/IDNumber') 算流年
+  router-link(to='/MingGua') 算命卦
 </template>
 
 <style lang="stylus">
@@ -155,6 +157,10 @@ main
   transition opacity 0.25s
 .page-enter-from, .page-leave-to
   opacity 0
+
+@media (prefers-reduced-motion reduce)
+  .page-enter-active, .page-leave-active
+    transition none
 
 @media (min-width 800px)
   #app

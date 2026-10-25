@@ -75,14 +75,17 @@ function resolveZeros(pairs, zeroRule) {
   return out
 }
 
+// 單一兩位數組合對應的星（八宅命卦頁也用這張表）
+export function starOf(pair) {
+  const star = STAR_BY_PAIR.get(pair)
+  return star && { pair, hidden: false, ...star, url: searchUrl(star.name) }
+}
+
 function analyzeDigits(digits, { zeroRule = 'standard' } = {}) {
   const pairs = toPairs(digits).filter(({ pair }) => pair !== '55' && (pair !== '00' || zeroRule === 'keepDouble'))
   return resolveZeros(resolveFives(pairs), zeroRule)
     .filter(({ pair }) => STAR_BY_PAIR.has(pair))
-    .map(({ pair, start, hidden = false }) => {
-      const star = STAR_BY_PAIR.get(pair)
-      return { pair, start, hidden, ...star, url: searchUrl(star.name) }
-    })
+    .map(({ pair, start, hidden = false }) => ({ ...starOf(pair), start, hidden }))
 }
 
 export function analyzePhone(input, options) {
